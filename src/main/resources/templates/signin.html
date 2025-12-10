@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EcoBasaarX — Sign In</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <main class="site-main signin-page">
+    <div class="container" style="min-height: calc(100vh - 160px); display:flex; align-items:center;">
+      <div style="margin:auto; width:100%; max-width:420px;">
+
+        <div class="signin-card" role="main" aria-labelledby="signinTitle">
+
+          <div class="brand">
+            <div class="eco-logo">Eco<span>Basaar</span>X</div>
+          </div>
+
+          <h2 id="signinTitle">Sign in</h2>
+
+          <!-- SIGN IN FORM -->
+          <form id="signinForm" novalidate>
+
+            <!-- IDENTIFIER -->
+            <label class="field">
+              <span class="label-text">Mobile number or Email</span>
+              <input id="signinInput" type="text" placeholder="Enter mobile or email" required>
+              <div id="signinErr" class="error"></div>
+            </label>
+
+            <!-- PASSWORD -->
+            <label class="field" style="margin-top:14px;">
+              <span class="label-text">Password</span>
+              <input id="signinPassword" type="password" placeholder="Enter your password" required minlength="6">
+              <div id="signinPassErr" class="error"></div>
+
+              <div class="pw-row">
+                <label class="show"><input id="showSignPassword" type="checkbox"> Show password</label>
+                <a href="#" id="forgotPassword" style="color:var(--blue); font-size:13px; text-decoration:none;">
+                  Forgot password?
+                </a>
+              </div>
+            </label>
+
+            <!-- SIGN IN BUTTON -->
+            <div class="actions" style="margin-top:18px;">
+              <button type="submit" class="btn primary" style="width:100%;">Sign in</button>
+            </div>
+
+            <div class="divider" style="margin-top:20px">New here?</div>
+
+            <div style="margin-top:8px;">
+              <a href="register.html" class="btn ghost"
+                style="width:100%; display:inline-block; text-align:center; padding:12px;">
+                Create your EcoBasaarX account
+              </a>
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="js/auth.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>EcoBasaarX — Landing</title>
+
+    <!-- Nunito font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="left">
+                <a href="landing.html" class="eco-logo" aria-label="EcoBasaarX home">Eco<span>Basaar</span>X</a>
+            </div>
+
+            <nav class="center" aria-label="Main navigation">
+                <a class="nav-link" href="#home">Home</a>
+                <a class="nav-link" href="#features">Features</a>
+                <a class="nav-link" href="#about">About</a>
+                <a class="nav-link" href="#contact">Contact</a>
+            </nav>
+
+            <div class="right">
+                <a href="signin.html" class="cta-ghost">Sign in</a>
+                <a class="cta-primary" href="register.html">Create account</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <main class="site-main" id="home">
+        <div class="container">
+            <!-- Hero (new design inspired by example) -->
+            <section id="home" class="hero-advanced">
+                <div class="hero-wrap container">
+                    <div class="hero-left">
+                        <div class="eyebrow">Smart · Fast · Sustainable</div>
+
+                        <h1>
+                            Your Shopping<br />
+                            Under <span class="highlight">Reliable</span> <br />
+                            Eco-Friendly Choices
+                        </h1>
+
+                        <p class="hero-sub">
+                            EcoBazaarX helps you pick products that are best for you — and kinder to the planet.
+                            Fast recommendations, clear impact scores, and a shopping flow that just works.
+                        </p>
+
+                        <div class="hero-ctas">
+                            <a class="btn primary" href="register.html">Get Started for Free</a>
+                            <!-- inside nav -->
+                            <a href="seller-signup.html" class="btn-sell">Sell with us</a>
+                        </div>
+
+                    </div>
+
+                    <div class="hero-right" aria-hidden="true">
+                        <!-- device / illustration — use a transparent PNG or SVG for best look -->
+                        <div class="hero-illu-wrap">
+                            <div class="hero-illu-mask">
+                                <img src="assets/products/heropage.jpg" alt="" class="hero-illu" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ⭐ INSERTED ECO PRODUCT SHOWCASE SECTION HERE -->
+            <section id="eco-products" style="padding:28px 0;">
+                <div class="container">
+                    <h2>Eco-friendly products</h2>
+                    <p class="small-note">Hand-picked samples showing eco-score and estimated CO₂ — helps shoppers pick
+                        greener options.</p>
+
+                    <div id="ecoGrid" class="eco-grid" aria-live="polite"></div>
+                </div>
+            </section>
+            <!-- ⭐ END OF ECO PRODUCT SECTION -->
+
+            <!-- Features: Icon grid (minimal, content-first) -->
+            <section id="features" class="features-grid-section">
+                <div class="container">
+                    <header class="features-head">
+                        <h2>Powerful features, made simple</h2>
+                        <p class="lead">Everything you need to choose better products fast — clear impact data,
+                            personalized suggestions, and a smooth checkout flow.</p>
+                    </header>
+
+                    <ul class="features-grid" role="list">
+                        <li class="feature-item">
+                            <div class="feature-icon" aria-hidden="true">
+                                <!-- leaf icon -->
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 20c8-8 16-16 16-16s-2.2 6.6-8 12c-5.8 5.4-8 4-8 4z" fill="#2A7D2E" />
+                                    <path d="M4 20s1.6-2.2 6-8c4.4-5.8 8-8 8-8" stroke="#18522B" stroke-width="0" />
+                                </svg>
+                            </div>
+                            <div class="feature-text">
+                                <h3>Eco Score</h3>
+                                <p>See product footprint and CO₂ info at a glance for smarter choices.</p>
+                            </div>
+                        </li>
+
+                        <li class="feature-item">
+                            <div class="feature-icon" aria-hidden="true">
+                                <!-- lightning -->
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" fill="#1793E6" />
+                                </svg>
+                            </div>
+                            <div class="feature-text">
+                                <h3>Fast Login</h3>
+                                <p>OTP-powered sign in — quick and secure without losing momentum.</p>
+                            </div>
+                        </li>
+
+                        <li class="feature-item">
+                            <div class="feature-icon" aria-hidden="true">
+                                <!-- robot -->
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="4" y="6" width="16" height="12" rx="2" fill="#6C63FF" />
+                                    <circle cx="9" cy="11" r="1.4" fill="#fff" />
+                                    <circle cx="15" cy="11" r="1.4" fill="#fff" />
+                                    <rect x="8" y="14" width="8" height="1.6" rx="0.8" fill="#fff" />
+                                </svg>
+                            </div>
+                            <div class="feature-text">
+                                <h3>Smart Picks</h3>
+                                <p>Personalized suggestions that match your taste and reduce impact.</p>
+                            </div>
+                        </li>
+
+                        <li class="feature-item">
+                            <div class="feature-icon" aria-hidden="true">
+                                <!-- chart -->
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="4" y="3" width="3" height="18" rx="1" fill="#F6B042" />
+                                    <rect x="10.5" y="8" width="3" height="13" rx="1" fill="#F6B042" />
+                                    <rect x="17" y="13" width="3" height="8" rx="1" fill="#F6B042" />
+                                </svg>
+                            </div>
+                            <div class="feature-text">
+                                <h3>Transparent Data</h3>
+                                <p>Clear comparison and progress tracking — no surprises, just facts.</p>
+                            </div>
+                        </li>
+
+                        <li class="feature-item">
+                            <div class="feature-icon" aria-hidden="true">
+                                <!-- shield -->
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2l7 3v5c0 5-3 9-7 11-4-2-7-6-7-11V5l7-3z" fill="#2A7D2E" />
+                                </svg>
+                            </div>
+                            <div class="feature-text">
+                                <h3>Secure</h3>
+                                <p>Your data and purchases are protected with modern security practices.</p>
+                            </div>
+                        </li>
+
+                        <li class="feature-item">
+                            <div class="feature-icon" aria-hidden="true">
+                                <!-- box -->
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 7l9-4 9 4v8l-9 4L3 15V7z" fill="#00BFA6" />
+                                </svg>
+                            </div>
+                            <div class="feature-text">
+                                <h3>Seamless Checkout</h3>
+                                <p>Fast ordering with clear shipping and eco-friendly options available.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- About (scroll-reveal, alternating image + text) -->
+            <section id="about" class="about-scroll" style="padding-top:20px;">
+                <div class="container">
+                    <h2 class="section-title">About</h2>
+
+                    <div class="about-grid">
+                        <!-- Item 1: Mission (image right on desktop) -->
+                        <article class="about-item">
+                            <div class="about-content">
+                                <h3>Mission</h3>
+                                <p>EcoBasaarX helps shoppers make greener choices by bringing product environmental
+                                    impact into the buying experience.</p>
+
+                                <h4 style="margin-top:12px;">How we do it</h4>
+                                <ul style="margin:8px 0 0 18px;color:var(--muted);">
+                                    <li>Collect product metadata and LCA information</li>
+                                    <li>Compute eco-scores and CO₂ estimates</li>
+                                    <li>Suggest better alternatives & packaging improvements</li>
+                                </ul>
+                            </div>
+
+                            <figure class="about-media" aria-hidden="true">
+                                <img src="assets/products/aboutpage1.jpg" alt="Illustration: mission" loading="lazy">
+                            </figure>
+                        </article>
+
+                        <!-- Item 2: Team & Tech (image left on desktop) -->
+                        <article class="about-item about-item--rev">
+                            <figure class="about-media" aria-hidden="true">
+                                <img src="assets/products/aboutpage2.jpg" alt="Illustration: team and tech"
+                                    loading="lazy">
+                            </figure>
+
+                            <div class="about-content">
+                                <h3>Team & Tech</h3>
+                                <p class="small-note">Soumya &amp; Nagavalli: backend & APIs • Kushal: MySQL database •
+                                    Keerthana: frontend (HTML/CSS/JS)</p>
+
+                                <h4 style="margin-top:12px;">Demo note</h4>
+                                <p class="small-note">Sign-in/registration demo uses OTP = <strong>1234</strong>.
+                                    Replace with real SMS/email in production.</p>
+                            </div>
+                        </article>
+
+                        <!-- Add more about-item blocks as needed -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact -->
+            <section id="contact" style="padding-top:20px; padding-bottom:40px;">
+                <h2>Contact</h2>
+
+                <div style="display:flex; gap:18px; flex-wrap:wrap;">
+
+                    <!-- Contact Form -->
+                    <div class="contact-card" style="flex:1; min-width:280px;">
+                        <h4>Get in touch</h4>
+                        <p class="small-note">For demo, datasets or integration questions, reach out to the team.</p>
+
+                        <form id="contactForm" onsubmit="return false;">
+                            <label class="field">
+                                <span class="label-text">Name</span>
+                                <input id="contactName" type="text" placeholder="Your name" required>
+                            </label>
+
+                            <label class="field">
+                                <span class="label-text">Email</span>
+                                <input id="contactEmail" type="email" placeholder="you@example.com" required>
+                            </label>
+
+                            <label class="field">
+                                <span class="label-text">Message</span>
+                                <textarea id="contactMsg" rows="4" placeholder="Short message" required></textarea>
+                            </label>
+
+                            <div style="display:flex; align-items:center; gap:12px; margin-top:10px;">
+                                <button id="contactSend" class="btn primary">Send</button>
+                                <span id="contactStatus" class="small-note"></span>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Support + Social Icons -->
+                    <div style="flex:1; min-width:260px;">
+                        <div class="about-card">
+                            <h4>Support</h4>
+                            <p class="small-note">
+                                Email:
+                                <a href="mailto:ecobasaarx.team@gmail.com" style="color:var(--blue)">
+                                    ecobasaarx.team@gmail.com
+                                </a>
+                            </p>
+
+                            <h4 style="margin-top:12px;">Quick links</h4>
+                            <ul style="margin:8px 0 0 18px;">
+                                <li><a href="register.html">Create account</a></li>
+                                <li><a href="signin.html">Sign in</a></li>
+                                <li><a href="#features">Product features</a></li>
+                            </ul>
+
+                            <h4 style="margin-top:16px;">Follow us</h4>
+                            <div class="social-flex" style="margin-top:10px; display:flex; gap:12px;">
+
+                                <!-- Facebook -->
+                                <a href="#" class="social-btn" aria-label="Facebook">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path
+                                            d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3.5L18 10h-4V7a1 1 0 0 1 1-1h3z" />
+                                    </svg>
+                                </a>
+
+                                <!-- Twitter/X -->
+                                <a href="#" class="social-btn" aria-label="Twitter">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 4l8 8m0 0l8 8m-8-8l8-8m-8 8L4 20" />
+                                    </svg>
+                                </a>
+
+                                <!-- Instagram -->
+                                <a href="#" class="social-btn" aria-label="Instagram">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" />
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                        <circle cx="17.5" cy="6.5" r="1" />
+                                    </svg>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="footer-left">
+                <div class="eco-logo small">Eco<span>Basaar</span>X</div>
+                <div class="muted">© 2025 EcoBasaarX</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const sampleProducts = [
+            {
+                title: "Reusable Bamboo Toothbrush",
+                img: "assets/products/bamboo_toothbrush.jpg",
+                price: 129, ecoScore: 92, co2: 0.12, delta: "35% less CO₂"
+            },
+            {
+                title: "Stainless Steel Bottle 500ml",
+                img: "assets/products/stainless_bottle.jpg",
+                price: 499, ecoScore: 95, co2: 0.45, delta: "60% less CO₂"
+            },
+            {
+                title: "Zero-Waste Shampoo Bar",
+                img: "assets/products/shampoo_bar.jpg",
+                price: 219, ecoScore: 90, co2: 0.25, delta: "40% less CO₂"
+            },
+            {
+                title: "Compostable Garbage Bags",
+                img: "assets/products/compost_bag.jpg",
+                price: 179, ecoScore: 71, co2: 1.2, delta: "20% less CO₂"
+            },
+            {
+                title: "Bamboo Cutlery Set",
+                img: "assets/products/bamboo_cutlery.jpg",
+                price: 149, ecoScore: 94, co2: 0.18, delta: "50% less CO₂"
+            },
+            {
+                title: "Biodegradable Drinking Straws",
+                img: "assets/products/biodegradable_straws.jpg",
+                price: 89, ecoScore: 87, co2: 0.05, delta: "70% less CO₂"
+            },
+            {
+                title: "Eco-friendly Detergent",
+                img: "assets/products/eco_detergent.jpg",
+                price: 249, ecoScore: 82, co2: 0.9, delta: "28% less CO₂"
+            },
+            {
+                title: "Eco Dish Washing Brush",
+                img: "assets/products/eco_dish_brush.jpg",
+                price: 199, ecoScore: 93, co2: 0.22, delta: "55% less CO₂"
+            },
+            {
+                title: "Metal Straw Set (Pack of 4)",
+                img: "assets/products/metal_straw_set.jpg",
+                price: 159, ecoScore: 98, co2: 0.03, delta: "85% less CO₂"
+            },
+            {
+                title: "Organic Coffee Beans",
+                img: "assets/products/organic_coffee.jpg",
+                price: 349, ecoScore: 78, co2: 2.8, delta: "18% less CO₂"
+            },
+            {
+                title: "Recycled Paper Towels",
+                img: "assets/products/recycled_papertowel.jpg",
+                price: 129, ecoScore: 88, co2: 0.4, delta: "32% less CO₂"
+            },
+            {
+                title: "Reusable Grocery Tote Bag",
+                img: "assets/products/reusable_grocery_bag.jpg",
+                price: 99, ecoScore: 96, co2: 0.06, delta: "65% less CO₂"
+            }
+        ];
+
+        function makeImg(src, alt) {
+            const img = document.createElement('img');
+            img.className = 'eco-product-img';
+            img.alt = alt || 'product';
+            img.src = src;
+            // fallback placeholder (small inline SVG data URI) when image fails
+            img.onerror = () => {
+                console.warn('Image failed to load:', src);
+                img.onerror = null;
+                img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+                    `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400">
+         <rect width="100%" height="100%" fill="#f3fbf7"/>
+         <text x="50%" y="50%" font-size="18" fill="#9fbfb0" text-anchor="middle" dy=".35em">No image</text>
+       </svg>`);
+            };
+            return img;
+        }
+
+        function renderEcoCards(products) {
+            const grid = document.getElementById('ecoGrid');
+            if (!grid) return console.error('ecoGrid not found');
+            grid.innerHTML = '';
+            products.forEach(p => {
+                const card = document.createElement('article');
+                card.className = 'eco-card';
+
+                const imgWrap = document.createElement('div');
+                imgWrap.className = 'eco-img';
+                imgWrap.appendChild(makeImg(p.img, p.title));
+
+                const body = document.createElement('div');
+                body.className = 'eco-body';
+                body.innerHTML = `
+      <div class="eco-title">${escapeHtml(p.title)}</div>
+      <div class="eco-price">₹${p.price}</div>
+      <div class="eco-meta">
+        <div>
+          <div class="eco-co2">${p.co2} kg CO₂</div>
+          <div class="eco-delta">${escapeHtml(p.delta)}</div>
+        </div>
+        <div class="eco-score-badge">${p.ecoScore}</div>
+      </div>
+    `;
+
+                card.appendChild(imgWrap);
+                card.appendChild(body);
+                grid.appendChild(card);
+            });
+        }
+
+        function escapeHtml(s) { return (s || '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderEcoCards(sampleProducts);
+        });
+    </script>
+
+    <!-- Smooth Scroll -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', (e) => {
+                const href = a.getAttribute('href');
+                if (!href || href === "#") return;
+                const el = document.querySelector(href);
+                if (!el) return;
+                e.preventDefault();
+                el.scrollIntoView({ behavior: "smooth" });
+            });
+        });
+
+        // contact form demo
+        document.getElementById('contactSend').addEventListener('click', (e) => {
+            e.preventDefault();
+            const name = contactName.value.trim();
+            const email = contactEmail.value.trim();
+            const msg = contactMsg.value.trim();
+            if (!name || !email || !msg) {
+                contactStatus.style.color = "#c23b3b";
+                contactStatus.textContent = "Please fill all fields.";
+                return;
+            }
+            contactStatus.style.color = "var(--green)";
+            contactStatus.textContent = "Message sent (demo).";
+            setTimeout(() => contactStatus.textContent = "", 2600);
+        });
+    </script>
+
+    <script>
+        (function () {
+            const items = document.querySelectorAll('.about-item');
+            if (!items.length) return;
+
+            // stagger effect (optional)
+            items.forEach((it, idx) => it.style.transitionDelay = (idx * 120) + 'ms');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Reveal the item but DO NOT hide earlier revealed ones
+                        entry.target.classList.add('in-view');
+                        observer.unobserve(entry.target); // reveal only once
+                    }
+                });
+            }, {
+                threshold: 0.25
+            });
+
+            items.forEach(it => observer.observe(it));
+        })();
+    </script>
+
+</body>
+
+</html>
