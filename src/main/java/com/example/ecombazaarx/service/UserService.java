@@ -5,6 +5,7 @@ import com.example.ecombazaarx.dto.UserSignupRequest;
 import com.example.ecombazaarx.entity.Role;
 import com.example.ecombazaarx.entity.User;
 import com.example.ecombazaarx.repository.UserRepository;
+import com.example.ecombazaarx.security.JwtUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @Service
 public class UserService {
@@ -21,6 +23,10 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+      @Autowired
+      private JwtUtil jwtUtil;
+
 
     public String registerUser(UserSignupRequest request) {
 
@@ -45,13 +51,23 @@ public class UserService {
         return "User registered successfully";
     }
 
-    public String login(LoginRequest request) {
-        User user = userRepository.findByUsername(request.getUsername())
-                    .orElseThrow(() -> new RuntimeException("User not found"));
-        if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid Password");
-        }
-        return "Login successfully";
+    public Map<String, Object> login(LoginRequest request) {
+
+    User user = userRepository.findByUsername(request.getUsername())
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+    if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+        throw new RuntimeException("Invalid password");
     }
+
+    String token = jwtUtil.generateToken(user.getUsername());
+
+    return Map.of(
+        "message", "Login successful",
+        "token", token,
+        "role", user.getRole().name()
+    );
+}
+
 }
 
