@@ -26,8 +26,8 @@ public class CartController {
             @RequestParam Long productId,
             @RequestParam Integer quantity
     ) {
-        var cart = cartService.addToCart(userId, productId, quantity);
-        var items = cartService.getCartItems(userId);
+        Cart cart = cartService.addToCart(userId, productId, quantity);
+        List<CartItem> items = cartService.getCartItems(userId);
         return ResponseEntity.ok(cartMapper.toCartResponseDTO(cart, items));
     }
 
@@ -37,8 +37,8 @@ public class CartController {
             @PathVariable Long productId,
             @RequestParam Integer quantity
     ) {
-        var cart = cartService.updateQuantity(userId, productId, quantity);
-        var items = cartService.getCartItems(userId);
+        Cart cart = cartService.updateQuantity(userId, productId, quantity);
+        List<CartItem> items = cartService.getCartItems(userId);
         return ResponseEntity.ok(cartMapper.toCartResponseDTO(cart, items));
     }
 
@@ -48,18 +48,23 @@ public class CartController {
             @PathVariable Long productId
     ) {
         cartService.removeFromCart(userId, productId);
-        var cart = cartService.getOrCreateCart(userId);
-        var items = cartService.getCartItems(userId);
+        Cart cart = cartService.getOrCreateCart(userId);
+        List<CartItem> items = cartService.getCartItems(userId);
         return ResponseEntity.ok(cartMapper.toCartResponseDTO(cart, items));
     }
 
+    // ✅ FIXED METHOD
     @GetMapping("/{userId}")
-    public ResponseEntity<ApiResponse<CartResponseDTO>> getCartItems(@PathVariable Long userId) {
+    public ResponseEntity<ApiResponse<CartResponseDTO>> getCart(@PathVariable Long userId) {
+
         Cart cart = cartService.getOrCreateCart(userId);
         List<CartItem> items = cartService.getCartItems(userId);
 
-        CartResponseDTO dto = cartMapper.toCartDTO(cart, items);
+        CartResponseDTO response =
+                cartMapper.toCartResponseDTO(cart, items);
 
-        return ResponseEntity.ok(ApiResponse.ok(dto, "Cart loaded successfully"));
+        return ResponseEntity.ok(
+                ApiResponse.ok(response, "Cart loaded successfully")
+        );
     }
 }
