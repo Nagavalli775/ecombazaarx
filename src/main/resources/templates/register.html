@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Shared site styles -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
@@ -27,18 +27,18 @@
         <!-- LEFT column -->
         <div class="form-col">
           <label class="field">
-            <span class="label-text">First name</span>
-            <input id="firstName" name="firstName" type="text" autocomplete="given-name" required placeholder="First name">
+            <span class="label-text">User name</span>
+            <input id="username" name="username" type="text" autocomplete="given-name" required placeholder="User name">
           </label>
 
-          <label class="field">
+          <!-- <label class="field">
             <span class="label-text">Last name</span>
             <input id="lastName" name="lastName" type="text" autocomplete="family-name" required placeholder="Last name">
-          </label>
+          </label> -->
 
           <label class="field">
             <span class="label-text">Email</span>
-            <input id="regEmail" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+            <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
             <div id="emailErr" class="error" aria-live="polite"></div>
           </label>
         </div>
@@ -48,28 +48,28 @@
           <label class="field">
             <span class="label-text">Mobile number</span>
             <div class="mobile-row">
-              <select id="countryCode" aria-label="Country code" class="country">
+              <!-- <select id="countryCode" aria-label="Country code" class="country">
                 <option value="+91">IN +91</option>
                 <option value="+1">US +1</option>
                 <option value="+44">UK +44</option>
-              </select>
+              </select> -->
 
-              <input id="mobile" name="mobile" type="tel" inputmode="tel" placeholder="98765 43210" required class="mobile-input">
-              <button id="verifyBtn" type="button" class="btn ghost" aria-pressed="false" disabled>Verify</button>
+              <input id="phone" name="mobile" type="tel" inputmode="tel" placeholder="98765 43210" required class="mobile-input">
+              <!-- <button id="verifyBtn" type="button" class="btn ghost" aria-pressed="false" disabled>Verify</button> -->
             </div>
             <div id="mobileErr" class="error" aria-live="polite"></div>
 
-            <div id="otpArea" class="otp-area" style="display:none">
+            <!-- <div id="otpArea" class="otp-area" style="display:none">
               <input id="otpInput" placeholder="Enter OTP" maxlength="6" />
               <button id="confirmOtp" type="button" class="btn primary">Confirm</button>
               <button id="cancelOtp" type="button" class="btn ghost">Cancel</button>
             </div>
-            <div id="mobileStatus" class="small-note" aria-live="polite"></div>
+            <div id="mobileStatus" class="small-note" aria-live="polite"></div> -->
           </label>
 
           <label class="field">
             <span class="label-text">Set password</span>
-            <input id="regPassword" name="password" type="password" required minlength="6" placeholder="At least 6 characters">
+            <input id="password" name="password" type="password" required minlength="6" placeholder="At least 6 characters">
 
             <div class="pw-row">
               <label class="show"><input id="showPassword" type="checkbox"> Show password</label>
@@ -91,6 +91,7 @@
   </main>
 
   <!-- shared auth logic -->
-  <script src="css/auth.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/apicalls.js"></script>
 </body>
 </html>

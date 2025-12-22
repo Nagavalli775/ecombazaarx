@@ -25,17 +25,25 @@ public class SecurityConfig {
           .csrf(csrf -> csrf.disable())
           .authorizeHttpRequests(auth -> auth
                .requestMatchers(
+                // "/",
+                // "/*.html",
+                "/registerSeller",
+                "/registerUser",
+                "/pageSignin",
+                "/seller/dashboard",
+                "/admin/dashboard",
                 "/landing",
-                "/",
-                "/signup/**",
-                "/login",
                 "/css/**",
                 "/js/**",
                 "/assets/**"
                ).permitAll()
-              .requestMatchers("/admin/**").hasRole("ADMIN")
-              .requestMatchers("/seller/**").hasAnyRole("SELLER","ADMIN")
-              .requestMatchers("/user/**").hasAnyRole("USER","SELLER","ADMIN")
+
+            // //    PAGE ACCESS
+            //   .requestMatchers("/seller/dashboard").hasAnyRole("SELLER","ADMIN")
+            //   .requestMatchers("/admin/dashboard").hasRole("ADMIN")
+
+            //    APIs
+              .requestMatchers("/signup/**", "/login").permitAll()
               .anyRequest().authenticated()
           )
           .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Seller Sign Up — EcoBazaarX</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap');
@@ -183,11 +183,11 @@
                         <div class="err" id="err_password"></div>
                     </div>
 
-                    <div class="field">
+                    <!-- <div class="field">
                         <label for="confirmPassword">Confirm Password *</label>
                         <input id="confirmPassword" name="confirmPassword" type="password">
                         <div class="err" id="err_confirmPassword"></div>
-                    </div>
+                    </div> -->
 
                     <div class="field full">
                         <label for="shopName">Shop Name *</label>
@@ -208,8 +208,8 @@
                             <option value="Retail">Retail</option>
                             <option value="Manufacturer">Manufacturer</option>
                             <option value="Wholesaler">Wholesaler</option>
-                            <option value="Artisan">Artisan</option>
-                            <option value="Other">Other</option>
+                            <!-- <option value="Artisan">Artisan</option> -->
+                            <!-- <option value="Other">Other</option> -->
                         </select>
                         <div class="err" id="err_businessType"></div>
                     </div>
@@ -233,8 +233,10 @@
 
                     <div class="field full">
                         <div class="terms-row">
-                            <input id="termsAccepted" name="termsAccepted" type="checkbox">
-                            <label for="termsAccepted">I accept the Terms & Conditions.</label>
+                            <!-- <input id="termsAccepted" name="termsAccepted" type="checkbox">
+                            <label for="termsAccepted">I accept the Terms & Conditions.</label> -->
+                            <label for="termsAccepted">Terms and Conditions Accepted *</label>
+                            <input id="termsAccepted" name="termsAccepted" type="text" placeholder="true or false">
                         </div>
                         <div class="err" id="err_termsAccepted"></div>
                     </div>
@@ -250,68 +252,68 @@
         </div>
     </main>
 
-
+    <script src="/js/sellerapi.js"></script>
     <script>
-        (function () {
+        // (function () {
 
-            const form = document.getElementById('sellerForm');
-            const feedback = document.getElementById('formFeedback');
-            const cancelBtn = document.getElementById('cancelBtn');
+        //     const form = document.getElementById('sellerForm');
+        //     const feedback = document.getElementById('formFeedback');
+        //     const cancelBtn = document.getElementById('cancelBtn');
 
-            cancelBtn.addEventListener('click', () => {
-                window.location.href = "landing.html";
-            });
+            // cancelBtn.addEventListener('click', () => {
+            //     window.location.href = "landing.html";
+            // });
 
-            function setErr(id, msg) { document.getElementById("err_" + id).textContent = msg || ""; }
+            // function setErr(id, msg) { document.getElementById("err_" + id).textContent = msg || ""; }
 
-            function validate(v) {
-                let ok = true;
-                ["username", "email", "phone", "password", "confirmPassword", "shopName", "shopAddress", "businessType", "bankAccountNumber", "ifscCode", "termsAccepted"].forEach(k => setErr(k, ""));
+            // function validate(v) {
+            //     let ok = true;
+            //     ["username", "email", "phone", "password", "confirmPassword", "shopName", "shopAddress", "businessType", "bankAccountNumber", "ifscCode", "termsAccepted"].forEach(k => setErr(k, ""));
 
-                if (!v.username) { setErr("username", "Required"); ok = false; }
-                if (!/^\S+@\S+\.\S+$/.test(v.email)) { setErr("email", "Invalid email"); ok = false; }
-                if (!/^\d{10}$/.test(v.phone)) { setErr("phone", "Enter 10-digit number"); ok = false; }
-                if (v.password.length < 6) { setErr("password", "Minimum 6 characters"); ok = false; }
-                if (v.password !== v.confirmPassword) { setErr("confirmPassword", "Passwords do not match"); ok = false; }
-                if (!v.shopName) { setErr("shopName", "Required"); ok = false; }
-                if (!v.shopAddress) { setErr("shopAddress", "Required"); ok = false; }
-                if (!v.businessType) { setErr("businessType", "Required"); ok = false; }
-                if (!v.bankAccountNumber) { setErr("bankAccountNumber", "Required"); ok = false; }
-                if (!v.ifscCode) { setErr("ifscCode", "Required"); ok = false; }
-                if (!v.termsAccepted) { setErr("termsAccepted", "You must accept"); ok = false; }
+            //     if (!v.username) { setErr("username", "Required"); ok = false; }
+            //     if (!/^\S+@\S+\.\S+$/.test(v.email)) { setErr("email", "Invalid email"); ok = false; }
+            //     if (!/^\d{10}$/.test(v.phone)) { setErr("phone", "Enter 10-digit number"); ok = false; }
+            //     if (v.password.length < 6) { setErr("password", "Minimum 6 characters"); ok = false; }
+            //     // if (v.password !== v.confirmPassword) { setErr("confirmPassword", "Passwords do not match"); ok = false; }
+            //     if (!v.shopName) { setErr("shopName", "Required"); ok = false; }
+            //     if (!v.shopAddress) { setErr("shopAddress", "Required"); ok = false; }
+            //     if (!v.businessType) { setErr("businessType", "Required"); ok = false; }
+            //     if (!v.bankAccountNumber) { setErr("bankAccountNumber", "Required"); ok = false; }
+            //     if (!v.ifscCode) { setErr("ifscCode", "Required"); ok = false; }
+            //     if (!v.termsAccepted) { setErr("termsAccepted", "You must accept"); ok = false; }
 
-                return ok;
-            }
+            //     return ok;
+            // }
 
-            form.addEventListener("submit", async (e) => {
-                e.preventDefault();
-                feedback.innerHTML = "";
+            // form.addEventListener("submit", async (e) => {
+            //     e.preventDefault();
+            //     feedback.innerHTML = "";
 
-                const data = {
-                    username: form.username.value.trim(),
-                    email: form.email.value.trim(),
-                    phone: form.phone.value.trim(),
-                    password: form.password.value,
-                    confirmPassword: form.confirmPassword.value,
-                    shopName: form.shopName.value.trim(),
-                    shopAddress: form.shopAddress.value.trim(),
-                    businessType: form.businessType.value,
-                    gstNumber: form.gstNumber.value.trim(),
-                    bankAccountNumber: form.bankAccountNumber.value.trim(),
-                    ifscCode: form.ifscCode.value.trim(),
-                    termsAccepted: form.termsAccepted.checked
-                };
+            //     const data = {
+            //         username: form.username.value.trim(),
+            //         email: form.email.value.trim(),
+            //         phone: form.phone.value.trim(),
+            //         password: form.password.value,
+                    // confirmPassword: form.confirmPassword.value,
+                //     shopName: form.shopName.value.trim(),
+                //     shopAddress: form.shopAddress.value.trim(),
+                //     businessType: form.businessType.value,
+                //     gstNumber: form.gstNumber.value.trim(),
+                //     bankAccountNumber: form.bankAccountNumber.value.trim(),
+                //     ifscCode: form.ifscCode.value.trim(),
+                //     termsAccepted: form.termsAccepted.checked
+                // };
 
-                if (!validate(data)) return;
+                // if (!validate(data)) return;
 
-                const fd = new FormData();
-                Object.keys(data).forEach(k => fd.append(k, data[k]));
+                // const fd = new FormData();
+                // Object.keys(data).forEach(k => fd.append(k, data[k]));
 
-                const btn = form.querySelector(".btn-primary");
-                btn.disabled = true;
-                btn.textContent = "Creating...";
+                // const btn = form.querySelector(".btn-primary");
+                // btn.disabled = true;
+                // btn.textContent = "Creating...";
 
-                try {
+                // try {
                     // DEMO MODE:
                     // await new Promise(r=>setTimeout(r,800));
                     // feedback.innerHTML = '<div class="success">Account created! Redirecting...</div>';
@@ -319,21 +321,21 @@
                     // btn.disabled=false; btn.textContent="Create Account";
                     // return;
 
-                    const res = await fetch("/api/seller/signup", { method: "POST", body: fd });
-                    if (!res.ok) throw new Error("Signup failed.");
+            //         const res = await fetch("/api/seller/signup", { method: "POST", body: fd });
+            //         if (!res.ok) throw new Error("Signup failed.");
 
-                    feedback.innerHTML = '<div class="success">Seller account created. Redirecting...</div>';
-                    setTimeout(() => window.location.href = "signin.html", 1100);
+            //         feedback.innerHTML = '<div class="success">Seller account created. Redirecting...</div>';
+            //         setTimeout(() => window.location.href = "signin.html", 1100);
 
-                } catch (err) {
-                    feedback.innerHTML = '<div class="err">Error: ' + err.message + '</div>';
-                } finally {
-                    btn.disabled = false;
-                    btn.textContent = "Create Account";
-                }
-            });
+            //     } catch (err) {
+            //         feedback.innerHTML = '<div class="err">Error: ' + err.message + '</div>';
+            //     } finally {
+            //         btn.disabled = false;
+            //         btn.textContent = "Create Account";
+            //     }
+            // });
 
-        })();
+        // })();
     </script>
 
 </body>

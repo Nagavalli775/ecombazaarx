@@ -8,7 +8,343 @@
 
     <!-- Nunito font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Small extra styles for product grid & cart (keeps in-file for easy copy) -->
+    <style>
+        /* Product grid & card */
+        .eco-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 16px;
+        }
+
+        .eco-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(20, 30, 50, 0.06);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .eco-img img {
+            width: 100%;
+            height: 160px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .eco-body {
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .eco-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #0d2b1f;
+        }
+
+        .eco-price {
+            color: #0a7a2b;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .eco-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-top: 6px;
+        }
+
+        .eco-co2 {
+            font-size: 13px;
+            color: #555;
+        }
+
+        .eco-delta {
+            font-size: 12px;
+            color: #2d7f2d;
+        }
+
+        .eco-score-badge {
+            background: #e8f6ec;
+            color: #0a7a2b;
+            padding: 6px 8px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .eco-card .card-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .eco-card button {
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-add {
+            background: #0a7a2b;
+            color: white;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid #ddd;
+        }
+
+        /* Controls row */
+        .eco-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            margin-bottom: 8px;
+        }
+
+        .eco-controls input[type="number"] {
+            width: 78px;
+            padding: 6px 8px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+
+        /* Cart */
+        .layout {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            margin-top: 18px;
+        }
+
+        .catalog {
+            flex: 1;
+            min-width: 260px;
+        }
+
+        .cart-panel {
+            width: 320px;
+            position: sticky;
+            top: 22px;
+            background: #fff;
+            padding: 14px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(10, 10, 10, 0.06);
+            height: fit-content;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .cart-item .meta {
+            font-size: 13px;
+            color: #444;
+        }
+
+        .cart-summary {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .small-note {
+            color: #666;
+            font-size: 13px;
+        }
+
+        /* modal */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 6000;
+        }
+
+        .modal {
+            background: #fff;
+            padding: 18px;
+            border-radius: 10px;
+            max-width: 520px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(10, 10, 10, 0.12);
+        }
+
+        .modal .row {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .modal input,
+        .modal textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+
+        /* admin toggle */
+        .admin-toggle {
+            margin-left: 8px;
+            font-size: 13px;
+        }
+
+        @media (max-width:980px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            .cart-panel {
+                width: 100%;
+                position: relative;
+                top: 0;
+            }
+        }
+
+        /* cart button in header */
+        .cart-btn {
+            position: relative;
+            margin-left: 12px;
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: #e2343b;
+            color: white;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 999px;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        /* offcanvas cart */
+        .offcanvas {
+            position: fixed;
+            right: -420px;
+            top: 0;
+            height: 100vh;
+            width: 380px;
+            background: #fff;
+            box-shadow: -20px 0 40px rgba(10, 20, 30, 0.12);
+            transition: right .28s ease;
+            z-index: 9000;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .offcanvas.show {
+            right: 0;
+        }
+
+        .offcanvas-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f1f3f3;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+        }
+
+        .offcanvas-body {
+            overflow: auto;
+            flex: 1;
+            padding-right: 6px;
+        }
+
+        .offcanvas-footer {
+            margin-top: 8px;
+        }
+
+        /* improved product image layout: fixed aspect + center crop */
+        .eco-img {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            display: block;
+            background: #f6f7f6;
+            border-bottom: 1px solid #f0f4f0;
+        }
+
+        .eco-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        /* tidy card spacing */
+        .eco-card {
+            padding-bottom: 12px;
+        }
+
+        .eco-body {
+            padding: 14px;
+        }
+
+        .card-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        /* responsive: narrower offcanvas on small screens */
+        @media (max-width:900px) {
+            .offcanvas {
+                width: 100%;
+                right: -100%;
+            }
+
+            .offcanvas.show {
+                right: 0;
+            }
+
+            .cart-badge {
+                top: 0;
+                right: 0;
+                transform: translate(4px, -6px);
+            }
+
+            .eco-img {
+                height: 160px
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -17,7 +353,7 @@
     <header class="site-header">
         <div class="container header-inner">
             <div class="left">
-                <a href="landing.html" class="eco-logo" aria-label="EcoBasaarX home">Eco<span>Basaar</span>X</a>
+                <a href="/landing" class="eco-logo" aria-label="EcoBasaarX home">Eco<span>Basaar</span>X</a>
             </div>
 
             <nav class="center" aria-label="Main navigation">
@@ -28,9 +364,21 @@
             </nav>
 
             <div class="right">
-                <a href="signin.html" class="cta-ghost">Sign in</a>
-                <a class="cta-primary" href="register.html">Create account</a>
+                <a href="/pageSignin" class="cta-ghost">Sign in</a>
+                <a class="cta-primary" href="/registerUser">Create account</a>
+
+                <!-- Cart icon -->
+                <button id="cartToggleBtn" class="cart-btn" aria-label="Open cart" title="Cart">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M6 6h15l-1.5 9h-11L6 6z" stroke="currentColor" stroke-width="1.1"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        <circle cx="10" cy="20" r="1" fill="currentColor" />
+                        <circle cx="18" cy="20" r="1" fill="currentColor" />
+                    </svg>
+                    <span id="cartBadge" class="cart-badge" aria-hidden="true">0</span>
+                </button>
             </div>
+
         </div>
     </header>
 
@@ -55,9 +403,9 @@
                         </p>
 
                         <div class="hero-ctas">
-                            <a class="btn primary" href="register.html">Get Started for Free</a>
+                            <a class="btn primary" href="/registerUser">Get Started for Free</a>
                             <!-- inside nav -->
-                            <a href="seller-signup.html" class="btn-sell">Sell with us</a>
+                            <a href="/registerSeller" class="btn-sell">Sell with us</a>
                         </div>
 
                     </div>
@@ -76,13 +424,63 @@
             <!-- ⭐ INSERTED ECO PRODUCT SHOWCASE SECTION HERE -->
             <section id="eco-products" style="padding:28px 0;">
                 <div class="container">
-                    <h2>Eco-friendly products</h2>
-                    <p class="small-note">Hand-picked samples showing eco-score and estimated CO₂ — helps shoppers pick
-                        greener options.</p>
+                    <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+                        <div>
+                            <h2>Eco-friendly products</h2>
+                            <p class="small-note">Hand-picked samples showing eco-score and estimated CO₂ — helps
+                                shoppers pick greener options.</p>
+                        </div>
+                    </div>
 
-                    <div id="ecoGrid" class="eco-grid" aria-live="polite"></div>
+                    <!-- filters -->
+                    <div class="eco-controls" role="search" aria-label="Product filters">
+                        <input id="searchBox" type="search" placeholder="Search products, sellers..."
+                            aria-label="Search products">
+                        <label>Eco ≥ <input id="ecoMin" type="number" min="0" max="100" value="0"></label>
+                        <label><input id="ecoCertified" type="checkbox"> Eco-certified only</label>
+                        <label>Sort:
+                            <select id="sortBy">
+                                <option value="">Default</option>
+                                <option value="price_asc">Price ↑</option>
+                                <option value="price_desc">Price ↓</option>
+                                <option value="carbon_asc">CO₂e ↑</option>
+                                <option value="carbon_desc">CO₂e ↓</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="layout" style="margin-top:10px;">
+                        <div class="catalog">
+                            <div id="ecoGrid" class="eco-grid" aria-live="polite"></div>
+                        </div>
+                    </div>
+
                 </div>
             </section>
+
+            <!-- Off-canvas cart panel (hidden by default) -->
+            <aside id="offcanvasCart" class="offcanvas" aria-hidden="true">
+                <div class="offcanvas-header">
+                    <h4>Your cart</h4>
+                    <button id="offcanvasClose" class="btn-ghost" aria-label="Close cart">Close</button>
+                </div>
+                <div id="offcanvasItems" class="offcanvas-body small-note">No items yet</div>
+                <div class="offcanvas-footer">
+                    <div style="display:flex;justify-content:space-between">
+                        <div class="small-note">Subtotal</div>
+                        <div>₹<span id="subtotal">0.00</span></div>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;margin-top:6px">
+                        <div class="small-note">Total CO₂e</div>
+                        <div><span id="totalCO2">0.000</span> kg</div>
+                    </div>
+                    <div id="orderRating" style="margin-top:8px"></div>
+                    <div style="display:flex;gap:8px;margin-top:12px;">
+                        <button id="checkoutBtn" class="btn primary" style="flex:1">Checkout</button>
+                        <button id="clearCart" class="btn-ghost">Clear</button>
+                    </div>
+                </div>
+            </aside>
             <!-- ⭐ END OF ECO PRODUCT SECTION -->
 
             <!-- Features: Icon grid (minimal, content-first) -->
@@ -284,8 +682,8 @@
 
                             <h4 style="margin-top:12px;">Quick links</h4>
                             <ul style="margin:8px 0 0 18px;">
-                                <li><a href="register.html">Create account</a></li>
-                                <li><a href="signin.html">Sign in</a></li>
+                                <li><a href="/registerUser">Create account</a></li>
+                                <li><a href="/pageSignin">Sign in</a></li>
                                 <li><a href="#features">Product features</a></li>
                             </ul>
 
@@ -338,155 +736,222 @@
         </div>
     </footer>
 
+    <!-- SCRIPT: product logic, cart, filters, admin (localStorage-backed) -->
     <script>
-        const sampleProducts = [
-            {
-                title: "Reusable Bamboo Toothbrush",
-                img: "assets/products/bamboo_toothbrush.jpg",
-                price: 129, ecoScore: 92, co2: 0.12, delta: "35% less CO₂"
-            },
-            {
-                title: "Stainless Steel Bottle 500ml",
-                img: "assets/products/stainless_bottle.jpg",
-                price: 499, ecoScore: 95, co2: 0.45, delta: "60% less CO₂"
-            },
-            {
-                title: "Zero-Waste Shampoo Bar",
-                img: "assets/products/shampoo_bar.jpg",
-                price: 219, ecoScore: 90, co2: 0.25, delta: "40% less CO₂"
-            },
-            {
-                title: "Compostable Garbage Bags",
-                img: "assets/products/compost_bag.jpg",
-                price: 179, ecoScore: 71, co2: 1.2, delta: "20% less CO₂"
-            },
-            {
-                title: "Bamboo Cutlery Set",
-                img: "assets/products/bamboo_cutlery.jpg",
-                price: 149, ecoScore: 94, co2: 0.18, delta: "50% less CO₂"
-            },
-            {
-                title: "Biodegradable Drinking Straws",
-                img: "assets/products/biodegradable_straws.jpg",
-                price: 89, ecoScore: 87, co2: 0.05, delta: "70% less CO₂"
-            },
-            {
-                title: "Eco-friendly Detergent",
-                img: "assets/products/eco_detergent.jpg",
-                price: 249, ecoScore: 82, co2: 0.9, delta: "28% less CO₂"
-            },
-            {
-                title: "Eco Dish Washing Brush",
-                img: "assets/products/eco_dish_brush.jpg",
-                price: 199, ecoScore: 93, co2: 0.22, delta: "55% less CO₂"
-            },
-            {
-                title: "Metal Straw Set (Pack of 4)",
-                img: "assets/products/metal_straw_set.jpg",
-                price: 159, ecoScore: 98, co2: 0.03, delta: "85% less CO₂"
-            },
-            {
-                title: "Organic Coffee Beans",
-                img: "assets/products/organic_coffee.jpg",
-                price: 349, ecoScore: 78, co2: 2.8, delta: "18% less CO₂"
-            },
-            {
-                title: "Recycled Paper Towels",
-                img: "assets/products/recycled_papertowel.jpg",
-                price: 129, ecoScore: 88, co2: 0.4, delta: "32% less CO₂"
-            },
-            {
-                title: "Reusable Grocery Tote Bag",
-                img: "assets/products/reusable_grocery_bag.jpg",
-                price: 99, ecoScore: 96, co2: 0.06, delta: "65% less CO₂"
-            }
+        /* --- PRODUCT SOURCE (seller sync + fallback demo products) --- */
+        const PROD_KEY = "ecobasaarx_products_v2";
+
+        /* Your 12 demo products (fallback) */
+        const defaultProducts = [
+            { id: 'p01', title: "Reusable Bamboo Toothbrush", img: "assets/products/bamboo_toothbrush.jpg", price: 129, ecoScore: 92, co2: 0.12, delta: "35% less CO₂", seller: "GreenStore" },
+            { id: 'p02', title: "Stainless Steel Bottle 500ml", img: "assets/products/stainless_bottle.jpg", price: 499, ecoScore: 95, co2: 0.45, delta: "60% less CO₂", seller: "PureSip" },
+            { id: 'p03', title: "Zero-Waste Shampoo Bar", img: "assets/products/shampoo_bar.jpg", price: 219, ecoScore: 90, co2: 0.25, delta: "40% less CO₂", seller: "CleanBar" },
+            { id: 'p04', title: "Compostable Garbage Bags", img: "assets/products/compost_bag.jpg", price: 179, ecoScore: 71, co2: 1.20, delta: "20% less CO₂", seller: "EcoWrap" },
+            { id: 'p05', title: "Bamboo Cutlery Set", img: "assets/products/bamboo_cutlery.jpg", price: 149, ecoScore: 94, co2: 0.18, delta: "50% less CO₂", seller: "GreenWare" },
+            { id: 'p06', title: "Biodegradable Drinking Straws", img: "assets/products/biodegradable_straws.jpg", price: 89, ecoScore: 87, co2: 0.05, delta: "70% less CO₂", seller: "StrawCo" },
+            { id: 'p07', title: "Eco-friendly Detergent", img: "assets/products/eco_detergent.jpg", price: 249, ecoScore: 82, co2: 0.90, delta: "28% less CO₂", seller: "CleanChem" },
+            { id: 'p08', title: "Eco Dish Washing Brush", img: "assets/products/eco_dish_brush.jpg", price: 199, ecoScore: 93, co2: 0.22, delta: "55% less CO₂", seller: "GreenWare" },
+            { id: 'p09', title: "Metal Straw Set (Pack of 4)", img: "assets/products/metal_straw_set.jpg", price: 159, ecoScore: 98, co2: 0.03, delta: "85% less CO₂", seller: "PureSip" },
+            { id: 'p10', title: "Organic Coffee Beans", img: "assets/products/organic_coffee.jpg", price: 349, ecoScore: 78, co2: 2.80, delta: "18% less CO₂", seller: "BeanKind" },
+            { id: 'p11', title: "Recycled Paper Towels", img: "assets/products/recycled_papertowel.jpg", price: 129, ecoScore: 88, co2: 0.40, delta: "32% less CO₂", seller: "PaperAgain" },
+            { id: 'p12', title: "Reusable Grocery Tote Bag", img: "assets/products/reusable_grocery_bag.jpg", price: 99, ecoScore: 96, co2: 0.06, delta: "65% less CO₂", seller: "BagIt" }
         ];
 
-        function makeImg(src, alt) {
-            const img = document.createElement('img');
-            img.className = 'eco-product-img';
-            img.alt = alt || 'product';
-            img.src = src;
-            // fallback placeholder (small inline SVG data URI) when image fails
-            img.onerror = () => {
-                console.warn('Image failed to load:', src);
-                img.onerror = null;
-                img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(
-                    `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400">
-         <rect width="100%" height="100%" fill="#f3fbf7"/>
-         <text x="50%" y="50%" font-size="18" fill="#9fbfb0" text-anchor="middle" dy=".35em">No image</text>
-       </svg>`);
-            };
-            return img;
-        }
+        /* Load seller products if present */
+        let products = (function () {
+            try {
+                const raw = localStorage.getItem(PROD_KEY);
+                if (!raw) return defaultProducts;
+                const data = JSON.parse(raw);
 
-        function renderEcoCards(products) {
-            const grid = document.getElementById('ecoGrid');
-            if (!grid) return console.error('ecoGrid not found');
-            grid.innerHTML = '';
-            products.forEach(p => {
-                const card = document.createElement('article');
-                card.className = 'eco-card';
+                if (!Array.isArray(data) || data.length === 0) return defaultProducts;
 
-                const imgWrap = document.createElement('div');
-                imgWrap.className = 'eco-img';
-                imgWrap.appendChild(makeImg(p.img, p.title));
-
-                const body = document.createElement('div');
-                body.className = 'eco-body';
-                body.innerHTML = `
-      <div class="eco-title">${escapeHtml(p.title)}</div>
-      <div class="eco-price">₹${p.price}</div>
-      <div class="eco-meta">
-        <div>
-          <div class="eco-co2">${p.co2} kg CO₂</div>
-          <div class="eco-delta">${escapeHtml(p.delta)}</div>
-        </div>
-        <div class="eco-score-badge">${p.ecoScore}</div>
-      </div>
-    `;
-
-                card.appendChild(imgWrap);
-                card.appendChild(body);
-                grid.appendChild(card);
-            });
-        }
-
-        function escapeHtml(s) { return (s || '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            renderEcoCards(sampleProducts);
-        });
-    </script>
-
-    <!-- Smooth Scroll -->
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-            a.addEventListener('click', (e) => {
-                const href = a.getAttribute('href');
-                if (!href || href === "#") return;
-                const el = document.querySelector(href);
-                if (!el) return;
-                e.preventDefault();
-                el.scrollIntoView({ behavior: "smooth" });
-            });
-        });
-
-        // contact form demo
-        document.getElementById('contactSend').addEventListener('click', (e) => {
-            e.preventDefault();
-            const name = contactName.value.trim();
-            const email = contactEmail.value.trim();
-            const msg = contactMsg.value.trim();
-            if (!name || !email || !msg) {
-                contactStatus.style.color = "#c23b3b";
-                contactStatus.textContent = "Please fill all fields.";
-                return;
+                return data;
+            } catch (e) {
+                console.error("Error reading seller products:", e);
+                return defaultProducts;
             }
-            contactStatus.style.color = "var(--green)";
-            contactStatus.textContent = "Message sent (demo).";
-            setTimeout(() => contactStatus.textContent = "", 2600);
+        })();
+
+        /* cart in memory */
+        let cart = [];
+
+        /* shortcut DOM nodes (cart badge & offcanvas) */
+        const cartBadge = document.getElementById('cartBadge');
+        const offcanvas = document.getElementById('offcanvasCart');
+        const offcanvasItems = document.getElementById('offcanvasItems');
+        const modalRoot = document.getElementById('modalRoot');
+
+        function esc(s) { return String(s || '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
+
+        /* render catalog */
+        function renderCatalog() {
+            const grid = document.getElementById('ecoGrid');
+            const q = (document.getElementById('searchBox').value || '').toLowerCase();
+            const ecoMin = Number(document.getElementById('ecoMin').value || 0);
+            const ecoCert = document.getElementById('ecoCertified').checked;
+            const sortBy = document.getElementById('sortBy').value || '';
+
+            let list = products.filter(p => {
+                if (q && !(p.title + ' ' + p.seller).toLowerCase().includes(q)) return false;
+                if (p.ecoScore < ecoMin) return false;
+                if (ecoCert && !p.ecoCertified) return false;
+                return true;
+            });
+
+            if (sortBy === 'price_asc') list.sort((a, b) => a.price - b.price);
+            if (sortBy === 'price_desc') list.sort((a, b) => b.price - a.price);
+            if (sortBy === 'carbon_asc') list.sort((a, b) => a.co2 - b.co2);
+            if (sortBy === 'carbon_desc') list.sort((a, b) => b.co2 - a.co2);
+
+            grid.innerHTML = list.map(p => `
+    <article class="eco-card">
+      <div class="eco-img"><img src="${esc(p.img)}" alt="${esc(p.title)}"></div>
+      <div class="eco-body">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div style="max-width:70%"><div class="eco-title">${esc(p.title)}</div><div class="small-note" style="margin-top:6px">Seller: ${esc(p.seller)}</div></div>
+          <div style="text-align:right"><div class="eco-price">₹${p.price}</div><div class="eco-score-badge" style="margin-top:8px">${p.ecoScore}</div></div>
+        </div>
+
+        <div style="margin-top:10px">
+          <div class="eco-co2">${p.co2.toFixed(3)} kg CO₂</div>
+          <div class="eco-delta small-note">${esc(p.delta)}</div>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn primary" onclick="addToCart('${p.id}')">Add to cart</button>
+          <button class="btn-ghost" onclick="showDetails('${p.id}')">Details</button>
+        </div>
+      </div>
+    </article>
+  `).join('');
+        }
+
+        /* Live sync: if seller updates products, refresh landing page */
+        window.addEventListener("storage", (e) => {
+            if (e.key === PROD_KEY) {
+                try {
+                    products = JSON.parse(e.newValue) || defaultProducts;
+                } catch {
+                    products = defaultProducts;
+                }
+                renderEcoCards();
+            }
         });
+
+        /* cart rendering updates badge + offcanvas content */
+        function renderCartUI() {
+            // badge count = total items
+            const count = cart.reduce((s, i) => s + i.qty, 0);
+            cartBadge.textContent = count;
+            cartBadge.style.display = count ? 'inline-block' : 'none';
+
+            // offcanvas items
+            if (!cart.length) {
+                offcanvasItems.innerHTML = '<div class="small-note">No items yet</div>';
+            } else {
+                offcanvasItems.innerHTML = cart.map(it => `
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f2f5f2">
+        <div style="max-width:70%">
+          <div style="font-weight:700">${esc(it.title)}</div>
+          <div class="small-note">₹${it.price} × ${it.qty}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="small-note">${(it.co2 * it.qty).toFixed(3)} kg</div>
+          <div style="margin-top:8px;display:flex;gap:6px;justify-content:flex-end">
+            <button class="btn-ghost" onclick="changeQty('${it.id}',-1)">−</button>
+            <button class="btn-ghost" onclick="changeQty('${it.id}',1)">+</button>
+            <button class="btn-ghost" onclick="removeItem('${it.id}')">🗑</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+            }
+
+            // totals
+            const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+            const totalCO2 = cart.reduce((s, i) => s + i.co2 * i.qty, 0);
+            document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+            document.getElementById('totalCO2').textContent = totalCO2.toFixed(3);
+
+            // rating
+            const items = cart.reduce((s, i) => s + i.qty, 0);
+            const ratingEl = document.getElementById('orderRating');
+            if (!items) { ratingEl.innerHTML = ''; return; }
+            const avg = totalCO2 / items;
+            if (avg <= 0.5) ratingEl.innerHTML = '<span class="eco-score-badge" style="background:#eaf9ed;color:#0a7a2b">Eco Hero</span>';
+            else if (avg <= 2.0) ratingEl.innerHTML = '<span class="eco-score-badge" style="background:#fff8e6;color:#b36b00">Moderate</span>';
+            else ratingEl.innerHTML = '<span class="eco-score-badge" style="background:#fff0f0;color:#b00000">High</span>';
+        }
+
+        /* cart functions */
+        function addToCart(id) {
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+            const inCart = cart.find(x => x.id === id);
+            if (inCart) inCart.qty++;
+            else cart.push({ id: p.id, title: p.title, price: p.price, co2: p.co2, qty: 1 });
+            renderCartUI();
+        }
+        function changeQty(id, delta) {
+            const it = cart.find(x => x.id === id);
+            if (!it) return;
+            it.qty += delta;
+            if (it.qty <= 0) cart = cart.filter(x => x.id !== id);
+            renderCartUI();
+        }
+        function removeItem(id) { cart = cart.filter(x => x.id !== id); renderCartUI(); }
+
+        /* modal details */
+        function showDetails(id) {
+            const p = products.find(x => x.id === id);
+            modalRoot.innerHTML = `<div class="modal-backdrop"><div class="modal">
+    <h3>${esc(p.title)}</h3>
+    <p><strong>Price:</strong> ₹${p.price}</p>
+    <p><strong>CO₂e:</strong> ${p.co2.toFixed(3)} kg</p>
+    <p><strong>Seller:</strong> ${esc(p.seller)}</p>
+    <p>${esc(p.description)}</p>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="btn primary" onclick="addToCart('${p.id}'); closeModal();">Add to cart</button>
+      <button class="btn-ghost" onclick="closeModal()">Close</button>
+    </div>
+  </div></div>`;
+        }
+        function closeModal() { modalRoot.innerHTML = ''; }
+
+        /* offcanvas toggle */
+        document.getElementById('cartToggleBtn').addEventListener('click', () => {
+            offcanvas.classList.add('show'); offcanvas.setAttribute('aria-hidden', 'false'); renderCartUI();
+        });
+        document.getElementById('offcanvasClose').addEventListener('click', () => {
+            offcanvas.classList.remove('show'); offcanvas.setAttribute('aria-hidden', 'true');
+        });
+        /* clicking outside the offcanvas closes it */
+        document.addEventListener('click', (e) => {
+            if (!offcanvas.classList.contains('show')) return;
+            const inside = offcanvas.contains(e.target) || document.getElementById('cartToggleBtn').contains(e.target);
+            if (!inside) { offcanvas.classList.remove('show'); offcanvas.setAttribute('aria-hidden', 'true'); }
+        });
+
+        /* checkout & clear */
+        document.getElementById('checkoutBtn').addEventListener('click', () => {
+            if (!cart.length) return alert('Cart is empty');
+            alert(`Checkout demo\nTotal CO₂e: ${document.getElementById('totalCO2').textContent} kg`);
+            cart = []; renderCartUI(); offcanvas.classList.remove('show');
+        });
+        document.getElementById('clearCart').addEventListener('click', () => { cart = []; renderCartUI(); });
+
+        /* filter wiring */
+        ['searchBox', 'ecoMin', 'ecoCertified', 'sortBy'].forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.addEventListener('input', renderCatalog);
+            el.addEventListener('change', renderCatalog);
+        });
+
+        /* init */
+        renderCatalog();
+        renderCartUI();
     </script>
 
     <script>

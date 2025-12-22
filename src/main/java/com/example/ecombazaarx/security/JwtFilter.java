@@ -21,7 +21,7 @@ public class JwtFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain chain)
             throws ServletException, IOException {
-        chain.doFilter(request, response);
+                        chain.doFilter(request, response);
     }
 }
 

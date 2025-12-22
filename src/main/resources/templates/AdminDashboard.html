@@ -9,4 +9,10 @@
     <h1>Welcome to Admin Dashboard</h1>
     <h2>This page under progress</h2>
 </body>
+<script>
+    const role = localStorage.getItem("role");
+        if(role !== "ADMIN") {
+            window.location.href = "/landing";
+    }
+</script>
 </html>
