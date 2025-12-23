@@ -4,11 +4,13 @@ import com.ecobazaarx.backend.entity.*;
 import com.ecobazaarx.backend.repository.*;
 import lombok.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class OrderService {
 
@@ -21,55 +23,55 @@ public class OrderService {
     // Checkout Process
     public Order checkout(Long userId) {
 
-        Cart cart = cartRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("Cart not found"));
+    Cart cart = cartService.getOrCreateCart(userId);
+    List<CartItem> cartItems = cartItemRepository.findByCartId(cart.getId());
 
-        List<CartItem> cartItems = cartItemRepository.findByCartId(cart.getId());
+    if (cartItems.isEmpty()) {
+        throw new RuntimeException("Your cart is empty");
+    }
 
-        if (cartItems.isEmpty())
-            throw new RuntimeException("Your cart is empty");
+    Order order = Order.builder()
+            .user(cart.getUser())
+            .orderStatus(OrderStatus.CONFIRMED)
+            .paymentStatus(PaymentStatus.PAID)
+            .paymentMethod(PaymentMethod.UPI) // dummy for now
+            .orderDate(new Timestamp(System.currentTimeMillis()))
+            .totalPrice(0.0)
+            .totalCarbonKg(0.0)
+            .build();
 
-        // Calculate totals
-        double totalPrice = cartItems.stream()
-                .mapToDouble(i -> i.getProduct().getPrice() * i.getQuantity())
-                .sum();
+    order = orderRepository.save(order); // get order ID
 
-        double totalCarbon = cartItems.stream()
-                .mapToDouble(i -> i.getProduct().getCarbonImpactKg() * i.getQuantity())
-                .sum();
+    double totalPrice = 0;
+    double totalCarbon = 0;
 
-        // Create order
-        Order order = Order.builder()
-                .user(User.builder().id(userId).build())
-                .orderStatus(OrderStatus.CONFIRMED)
-                .paymentStatus(PaymentStatus.PAID)
-                .paymentMethod(PaymentMethod.UPI)
-                .totalPrice(totalPrice)
-                .totalCarbonKg(totalCarbon)
-                .orderDate(new Timestamp(System.currentTimeMillis()))
+    for (CartItem ci : cartItems) {
+
+        double itemPrice = ci.getProduct().getPrice() * ci.getQuantity();
+        double itemCarbon = ci.getProduct().getCarbonImpactKg() * ci.getQuantity();
+
+        OrderItem oi = OrderItem.builder()
+                .order(order)
+                .product(ci.getProduct())
+                .unitPrice(ci.getProduct().getPrice())
+                .quantity(ci.getQuantity())
+                .carbonCostKg(itemCarbon)
                 .build();
 
-        orderRepository.save(order);
+        orderItemRepository.save(oi);
 
-        // Save each item in order_items
-        for (CartItem ci : cartItems) {
-
-            OrderItem oi = OrderItem.builder()
-                    .order(order)
-                    .product(ci.getProduct())
-                    .unitPrice(ci.getProduct().getPrice())
-                    .quantity(ci.getQuantity())
-                    .carbonCostKg(ci.getProduct().getCarbonImpactKg() * ci.getQuantity())
-                    .build();
-
-            orderItemRepository.save(oi);
-        }
-
-        // Clear cart after checkout
-        cartService.clearCart(userId);
-
-        return order;
+        totalPrice += itemPrice;
+        totalCarbon += itemCarbon;
     }
+
+    order.setTotalPrice(totalPrice);
+    order.setTotalCarbonKg(totalCarbon);
+    orderRepository.save(order);
+
+    cartService.clearCart(userId);
+
+    return order;
+}
 
     // Eco rating logic
     public String generateEcoRating(double carbon) {
