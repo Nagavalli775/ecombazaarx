@@ -15,25 +15,25 @@ public class OrderMapper {
         return OrderItemDTO.builder()
                 .productId(item.getProduct().getId())
                 .productName(item.getProduct().getName())
+                .sellerId(item.getProduct().getSeller().getId())
+                .unitPrice(item.getUnitPrice())
                 .quantity(item.getQuantity())
-                .price(item.getProduct().getPrice())
-                .carbonImpactKg(item.getProduct().getCarbonImpactKg())
+                .carbonCostKg(item.getCarbonCostKg())
                 .build();
     }
 
-    public OrderResponseDTO toOrderDTO(Order order, List<OrderItem> items) {
+    public OrderResponseDTO toOrderResponseDTO(Order order, List<OrderItem> items) {
 
-        List<OrderItemDTO> dtos = items.stream()
+        List<OrderItemDTO> itemDTOs = items.stream()
                 .map(this::toOrderItemDTO)
                 .toList();
 
         return OrderResponseDTO.builder()
                 .orderId(order.getId())
-                .userId(order.getUser().getId())
-                .orderDate(order.getOrderDate().toString())
+                .orderStatus(order.getOrderStatus().name())
                 .totalPrice(order.getTotalPrice())
-                .totalCarbon(order.getTotalCarbon())
-                .items(dtos)
+                .totalCarbonKg(order.getTotalCarbonKg())
+                .items(itemDTOs)
                 .build();
     }
 }
