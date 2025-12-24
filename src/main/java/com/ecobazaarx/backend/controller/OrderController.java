@@ -15,27 +15,48 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
+    private final OrderItemRepository orderItemRepository;
     private final CartService cartService;
+    private final OrderMapper orderMapper;
 
-    // Checkout
+    // ✅ Checkout (Cart → Order)
     @PostMapping("/{userId}/checkout")
-    public ResponseEntity<Order> checkout(@PathVariable Long userId) {
+    public ResponseEntity<OrderResponseDTO> checkout(@PathVariable Long userId) {
+
         Order order = orderService.checkout(userId);
-        return ResponseEntity.ok(order);
+
+        List<OrderItem> items =
+                orderItemRepository.findByOrderId(order.getId());
+
+        return ResponseEntity.ok(
+                orderMapper.toOrderResponseDTO(order, items)
+        );
     }
 
-    // Get user's orders
+    // ✅ User order history
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Order>> getUserOrders(@PathVariable Long userId) {
+    public ResponseEntity<List<OrderResponseDTO>> getUserOrders(
+            @PathVariable Long userId
+    ) {
+
         List<Order> orders = orderService.getOrders(userId);
-        return ResponseEntity.ok(orders);
+
+        List<OrderResponseDTO> response = orders.stream()
+                .map(order -> {
+                    List<OrderItem> items =
+                            orderItemRepository.findByOrderId(order.getId());
+                    return orderMapper.toOrderResponseDTO(order, items);
+                })
+                .toList();
+
+        return ResponseEntity.ok(response);
     }
 
-    // Eco rating for user's cart before checkout
+    // ✅ Eco rating before checkout
     @GetMapping("/{userId}/eco-rating")
     public ResponseEntity<String> getEcoRating(@PathVariable Long userId) {
+
         double carbon = cartService.calculateCarbon(userId);
-        String rating = orderService.generateEcoRating(carbon);
-        return ResponseEntity.ok(rating);
+        return ResponseEntity.ok(orderService.generateEcoRating(carbon));
     }
 }
