@@ -1,37 +1,46 @@
 @Service
 @RequiredArgsConstructor
-public class RecommendationService {
+public List<EcoAlternativeDTO> recommendAlternatives(Long cartId) {
 
-    private final CartItemRepository cartItemRepository;
-    private final ProductRepository productRepository;
+    List<CartItem> items = cartItemRepository.findByCartId(cartId);
+    List<EcoAlternativeDTO> results = new ArrayList<>();
 
-    public List<EcoAlternativeDTO> recommendAlternatives(Long cartId) {
+    for (CartItem item : items) {
 
-        List<CartItem> items = cartItemRepository.findByCartId(cartId);
+        Product p = item.getProduct();
 
-        List<EcoAlternativeDTO> recommendations = new ArrayList<>();
-
-        for (CartItem item : items) {
-            Product p = item.getProduct();
-
-            List<Product> alts =
+        List<Product> alternatives =
                 productRepository
-                    .findTop3ByCategoryAndCarbonImpactKgLessThanAndIdNotOrderByCarbonImpactKgAsc(
-                        p.getCategory(),
-                        p.getCarbonImpactKg(),
-                        p.getId()
-                    );
+                        .findTop3ByCategoryAndCarbonImpactKgLessThanAndIdNotOrderByCarbonImpactKgAsc(
+                                p.getCategory(),
+                                p.getCarbonImpactKg(),
+                                p.getId()
+                        );
 
-            alts.forEach(a -> recommendations.add(
+        if (alternatives.isEmpty()) {
+            // Explicitly mark as best choice
+            results.add(
                 EcoAlternativeDTO.builder()
                     .originalProductId(p.getId())
-                    .alternativeProductId(a.getId())
-                    .alternativeName(a.getName())
-                    .price(a.getPrice())
-                    .carbonImpactKg(a.getCarbonImpactKg())
+                    .alternativeProductId(null)
+                    .alternativeName("Best low-impact choice already selected ✔")
+                    .price(p.getPrice())
+                    .carbonImpactKg(p.getCarbonImpactKg())
                     .build()
-            ));
+            );
+        } else {
+            for (Product alt : alternatives) {
+                results.add(
+                    EcoAlternativeDTO.builder()
+                        .originalProductId(p.getId())
+                        .alternativeProductId(alt.getId())
+                        .alternativeName(alt.getName())
+                        .price(alt.getPrice())
+                        .carbonImpactKg(alt.getCarbonImpactKg())
+                        .build()
+                );
+            }
         }
-        return recommendations;
     }
+    return results;
 }
