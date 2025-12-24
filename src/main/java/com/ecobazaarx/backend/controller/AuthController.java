@@ -1,8 +1,8 @@
 package com.ecobazaarx.backend.controller;
 
-import com.ecobazaarx.backend.dto.UserSignupRequestDTO.java;
-import com.ecobazaarx.backend.dto.SellerSignupRequestDTO.java;
-import com.ecobazaarx.backend.dto.LoginRequestDTO.java;
+import com.ecobazaarx.backend.dto.UserSignupRequestDTO;
+import com.ecobazaarx.backend.dto.SellerSignupRequestDTO;
+import com.ecobazaarx.backend.dto.LoginRequestDTO;
 import com.ecobazaarx.backend.entity.User;
 import com.ecobazaarx.backend.enums.UserRole;
 import com.ecobazaarx.backend.service.AuthService;
