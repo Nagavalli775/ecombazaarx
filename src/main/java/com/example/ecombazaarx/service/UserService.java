@@ -1,6 +1,7 @@
 package com.example.ecombazaarx.service;
 
 import com.example.ecombazaarx.dto.LoginRequest;
+import com.example.ecombazaarx.dto.UserProfileDto;
 import com.example.ecombazaarx.dto.UserSignupRequest;
 import com.example.ecombazaarx.entity.Role;
 import com.example.ecombazaarx.entity.User;
@@ -27,7 +28,7 @@ public class UserService {
       @Autowired
       private JwtUtil jwtUtil;
 
-
+    // User Signup
     public String registerUser(UserSignupRequest request) {
 
         if (userRepository.findByUsername(request.getUsername()).isPresent()) {
@@ -51,6 +52,7 @@ public class UserService {
         return "User registered successfully";
     }
 
+    // Login
     public Map<String, Object> login(LoginRequest request) {
 
     User user = userRepository.findByUsername(request.getUsername())
@@ -67,6 +69,19 @@ public class UserService {
         "token", token,
         "role", user.getRole().name()
     );
+}
+
+//   User Profile
+public UserProfileDto getUserProfile(String username) {
+    User user = userRepository.findByUsername(username)
+    .orElseThrow(() -> new RuntimeException("User Not Found"));
+    
+    return new UserProfileDto(
+    user.getUsername(),
+    user.getEmail(),
+    user.getPhone(), 
+    user.getRole().name()
+);
 }
 
 }
