@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seller Sign In — EcoBazaarX</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --accent: #1e7022;
+    --muted: #4e5c54;
+    --bg-light: #e0eee4;
+    --card-bg-transparent: rgba(255, 255, 255, 0.88);
+    --text-dark: #0f2018;
+    --error-color: #d83a3a;
+}
+
+body {
+    background: var(--bg-light);
+    background-image: radial-gradient(circle at top right, rgba(30,112,34,0.15), transparent),
+                      radial-gradient(circle at bottom left, rgba(20,128,176,0.15), transparent);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    background: var(--card-bg-transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    padding: 40px 35px;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 22px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+h1 {
+    font-family: Nunito, sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+    margin: 0 0 8px;
+    color: var(--accent);
+}
+
+.subtitle {
+    margin-bottom: 25px;
+    color: var(--muted);
+}
+
+label {
+    font-size: 14px;
+    font-weight: 800;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 16px;
+    border-radius: 14px;
+    border: 2px solid rgba(0,0,0,0.15);
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+input:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(30,112,34,0.3);
+}
+
+.err {
+    font-size: 14px;
+    color: var(--error-color);
+    min-height: 18px;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--accent), #144e17);
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.btn-primary:hover {
+    box-shadow: 0 8px 20px rgba(30,112,34,0.5);
+    transform: translateY(-2px);
+}
+
+.success {
+    background: #ddf8e0;
+    color: #0c3e1e;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(34,80,36,0.3);
+    margin-bottom: 15px;
+    font-weight: 600;
+    text-align: center;
+}
+</style>
+
+</head>
+<body>
+
+<div class="card">
+    <h1>Seller Sign In</h1>
+    <p class="subtitle">Access your seller dashboard</p>
+
+    <div id="feedback"></div>
+
+    <form id="loginForm">
+
+        <label>Email *</label>
+        <input type="email" id="email" placeholder="Enter email">
+        <div class="err" id="err_email"></div>
+
+        <label>Password *</label>
+        <input type="password" id="password" placeholder="Enter password">
+        <div class="err" id="err_password"></div>
+
+        <button type="submit" class="btn-primary">Sign In</button>
+
+    </form>
+
+</div>
+
+<script>
+const form = document.getElementById("loginForm");
+const feedback = document.getElementById("feedback");
+
+function setErr(id, msg) {
+    document.getElementById("err_" + id).textContent = msg;
+}
+
+form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    
+    setErr("email", "");
+    setErr("password", "");
+    feedback.innerHTML = "";
+
+    let email = document.getElementById("email").value.trim();
+    let pass = document.getElementById("password").value.trim();
+
+    let ok = true;
+
+    if (!/^\S+@\S+\.\S+$/.test(email)) { setErr("email", "Enter valid email"); ok = false; }
+    if (pass.length < 6) { setErr("password", "Minimum 6 characters"); ok = false; }
+
+    if (!ok) return;
+
+
+    
+    // Save login session
+    localStorage.setItem("sellerLoggedIn", "true");
+
+    feedback.innerHTML = `<div class="success">Login successful! Redirecting...</div>`;
+
+    setTimeout(() => {
+        window.location.href = "seller-dashboard.html";
+    }, 1000);
+});
+</script>
+
+</body>
+</html>

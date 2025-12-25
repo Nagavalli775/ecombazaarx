@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Dashboard — EcoBazaarX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --primary-dark: #27ae60;
+            --bg: #f5f7fa;
+            --sidebar-bg: #1e1e2d;
+            --text-light: #b8b8c7;
+            --white: #fff;
+            --input-border: #ddd;
+            --focus-ring: rgba(46, 204, 113, 0.4);
+            --shadow-hover: 0 14px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background: var(--bg);
+            display: flex;
+        }
+
+        nav,
+        header {
+            display: none !important;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 250px;
+            background: var(--sidebar-bg);
+            height: 100vh;
+            position: fixed;
+            padding-top: 10px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            color: var(--white);
+            margin-bottom: 30px;
+            font-size: 22px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 15px 25px;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* MAIN CONTENT & HEADER */
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+            width: 100%;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            padding: 10px 20px;
+            background: var(--primary-dark);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background: #1e8c4e;
+        }
+
+        /* DASHBOARD CARDS */
+        .cards {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            font-size: 26px;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* ADD PRODUCT FORM STYLES */
+        #addProductSection {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-top: 40px;
+            transition: all 0.3s ease;
+            max-width: 600px;
+        }
+
+        #addProductSection h2 {
+            margin-bottom: 30px;
+            color: var(--sidebar-bg);
+            font-weight: 600;
+            border-bottom: 1px solid var(--input-border);
+            padding-bottom: 15px;
+        }
+
+        #addProductSection input {
+            width: 100%;
+            padding: 15px 15px;
+            margin-bottom: 20px;
+            border: 1px solid var(--input-border);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        #addProductSection input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--focus-ring);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 10px;
+        }
+
+        #addProductSection button {
+            padding: 12px 30px;
+            background: var(--primary);
+            border: none;
+            border-radius: 8px;
+            color: var(--white);
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 16px;
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+        }
+
+        #addProductSection button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(46, 204, 113, 0.4);
+        }
+
+        /* FILE UPLOAD STYLES */
+        .file-upload-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px dashed var(--input-border);
+            border-radius: 8px;
+            background-color: var(--bg);
+        }
+
+        .file-upload-container label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        #productImage {
+            border: none;
+            padding: 0;
+            margin: 0;
+            background: none;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        #productImage:focus {
+            box-shadow: none;
+            outline: none;
+            border-color: transparent;
+        }
+        
+        /* GENERAL CONTENT SECTION & TABLE STYLES */
+        .content-section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-top: 40px;
+        }
+        
+        .content-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: var(--white);
+        }
+
+        .content-section th,
+        .content-section td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .content-section th {
+            background-color: var(--bg);
+            color: var(--sidebar-bg);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .content-section tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .content-section td button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .action-btn-view {
+            background: var(--primary);
+            color: var(--white);
+            margin-right: 5px;
+        }
+
+        .action-btn-view:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-shipped {
+            background-color: #f7e099;
+            color: #9c6e00;
+        }
+
+        .status-pending {
+            background-color: #f5b7b1;
+            color: #c0392b;
+        }
+
+        .status-delivered {
+            background-color: #d1f2eb;
+            color: var(--primary-dark);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <h2>EcoBazaarX</h2>
+
+        <a class="active" href="#" data-section="dashboard">Dashboard</a>
+        <a href="#" data-section="add-product">Add Product</a>
+        <a href="#" data-section="view-products">View Products</a>
+        <a href="#" data-section="inventory">Inventory Management</a>
+        <a href="#" data-section="orders">Orders</a>
+        <a href="#" data-section="profile">Profile</a>
+        <a href="#" data-section="settings">Settings</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>Seller Dashboard</h1>
+            <button class="logout-btn">Logout</button>
+        </div>
+
+        <div class="cards" id="dashboardCards">
+            <div class="card">
+                <h3 id="totalProductsDisplay">0</h3>
+                <p>Total Products</p>
+            </div>
+
+            <div class="card">
+                <h3>0</h3>
+                <p>Total Orders</p>
+            </div>
+
+            <div class="card">
+                <h3>0</h3>
+                <p>Stock Items</p>
+            </div>
+        </div>
+
+        <div id="addProductSection" style="display:none;">
+            <h2>Add New Product</h2>
+            <input type="text" id="productName" placeholder="Product Name" required>
+            <input type="number" id="productQty" placeholder="Quantity" min="1" required>
+
+            <div class="file-upload-container">
+                <label for="productImage">Product Image</label>
+                <input type="file" id="productImage" accept="image/*">
+            </div>
+
+            <div class="form-actions">
+                <button id="addProductBtn">Add Product</button>
+            </div>
+        </div>
+
+        <div id="viewProductsSection" class="content-section" style="display:none;">
+            <h2>Product Catalog</h2>
+            <p>Here you will see a list of all 0 products you have added.</p>
+            <table id="productTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Product Name</th>
+                        <th>Stock</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        
+        <div id="ordersSection" class="content-section" style="display:none;">
+            <h2>Recent Orders</h2>
+            <table id="ordersTable">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Total Items</th>
+                        <th>Status</th>
+                        <th>Date Placed</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="inventorySection" class="content-section" style="display:none;">
+            <h2>Inventory Management</h2>
+            <p>Stock levels and inventory tools will go here.</p>
+        </div>
+        
+        <div id="profileSection" class="content-section" style="display:none;">
+            <h2>Profile Settings</h2>
+            <p>Manage your seller details and billing information.</p>
+        </div>
+        
+        <div id="settingsSection" class="content-section" style="display:none;">
+            <h2>Account Settings</h2>
+            <p>Change password, notification preferences, etc.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Paste the JavaScript code below here
+    </script>
+</body>
+
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    
+    // --- Mock Data Store ---
+    let productCatalog = []; 
+    const mockOrders = [
+        { id: 'ORD001', customer: 'Alice Johnson', items: 2, status: 'Delivered', date: '2025-12-10', total: 45.50 },
+        { id: 'ORD002', customer: 'Bob Smith', items: 1, status: 'Pending', date: '2025-12-09', total: 12.99 },
+        { id: 'ORD003', customer: 'Charlie Brown', items: 4, status: 'Shipped', date: '2025-12-08', total: 115.00 },
+    ];
+    
+    // --- DOM Elements ---
+    const sidebarLinks = document.querySelectorAll(".sidebar a");
+    const dashboardCards = document.getElementById("dashboardCards");
+    const addProductSection = document.getElementById("addProductSection");
+    const viewProductsSection = document.getElementById("viewProductsSection");
+    const ordersSection = document.getElementById("ordersSection");
+    const inventorySection = document.getElementById("inventorySection");
+    const profileSection = document.getElementById("profileSection");
+    const settingsSection = document.getElementById("settingsSection");
+    
+    const mainHeader = document.querySelector(".header h1");
+    const logoutBtn = document.querySelector(".logout-btn");
+    const addProductBtn = document.getElementById("addProductBtn");
+    const totalProductsDisplay = document.getElementById("totalProductsDisplay");
+    const productImageInput = document.getElementById("productImage");
+    const ordersTableBody = document.querySelector("#ordersTable tbody");
+    const productTableBody = document.querySelector("#productTable tbody");
+    
+    // Get all content sections (for easy hiding)
+    const contentSections = [
+        addProductSection, viewProductsSection, ordersSection, 
+        inventorySection, profileSection, settingsSection
+    ];
+
+    // --- Helper Functions ---
+    
+    function renderOrders() {
+        ordersTableBody.innerHTML = ''; 
+        mockOrders.forEach(order => {
+            let statusClass = '';
+            if (order.status === 'Delivered') statusClass = 'status-delivered';
+            else if (order.status === 'Shipped') statusClass = 'status-shipped';
+            else statusClass = 'status-pending';
+
+            const row = `
+                <tr>
+                    <td>${order.id}</td>
+                    <td>${order.customer}</td>
+                    <td>${order.items}</td>
+                    <td><span class="status-badge ${statusClass}">${order.status}</span></td>
+                    <td>${order.date}</td>
+                    <td><button class="action-btn-view">View Details</button></td>
+                </tr>
+            `;
+            ordersTableBody.insertAdjacentHTML('beforeend', row);
+        });
+    }
+    
+    function renderProducts() {
+        productTableBody.innerHTML = '';
+        productCatalog.forEach((product, index) => {
+             const row = `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${product.name}</td>
+                    <td>${product.qty}</td>
+                    <td>
+                        <button class="action-btn-view">Edit</button>
+                        <button class="action-btn-view" style="background: #c0392b;">Delete</button>
+                    </td>
+                </tr>
+            `;
+            productTableBody.insertAdjacentHTML('beforeend', row);
+        });
+        const productCountText = viewProductsSection.querySelector('p');
+        if (productCountText) {
+             productCountText.textContent = `Here you will see a list of all ${productCatalog.length} products you have added.`;
+        }
+    }
+    
+    function navigateToSection(sectionName, linkElement) {
+        
+        sidebarLinks.forEach(link => link.classList.remove('active'));
+        if (linkElement) {
+            linkElement.classList.add('active');
+        }
+
+        dashboardCards.style.display = 'none';
+        contentSections.forEach(section => section.style.display = 'none');
+        
+        switch (sectionName) {
+            case 'dashboard':
+                dashboardCards.style.display = 'grid';
+                mainHeader.textContent = 'Seller Dashboard';
+                break;
+            case 'add-product':
+                addProductSection.style.display = 'block';
+                mainHeader.textContent = 'Add New Product';
+                break;
+            case 'view-products':
+                viewProductsSection.style.display = 'block';
+                mainHeader.textContent = 'Product Catalog';
+                renderProducts();
+                break;
+            case 'orders':
+                ordersSection.style.display = 'block';
+                mainHeader.textContent = 'Customer Orders';
+                renderOrders();
+                break;
+            case 'inventory':
+                inventorySection.style.display = 'block';
+                mainHeader.textContent = 'Inventory Management';
+                break;
+            case 'profile':
+                profileSection.style.display = 'block';
+                mainHeader.textContent = 'Seller Profile';
+                break;
+            case 'settings':
+                settingsSection.style.display = 'block';
+                mainHeader.textContent = 'Account Settings';
+                break;
+            default:
+                dashboardCards.style.display = 'grid';
+                mainHeader.textContent = 'Seller Dashboard';
+                break;
+        }
+    }
+    
+    // --- Event Listeners ---
+    
+    sidebarLinks.forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const section = link.getAttribute('data-section');
+            navigateToSection(section, link);
+        });
+    });
+
+    addProductBtn.addEventListener("click", () => {
+        const nameInput = document.getElementById("productName");
+        const qtyInput = document.getElementById("productQty");
+        const imageFile = productImageInput.files[0]; 
+        
+        const name = nameInput.value.trim();
+        const qty = parseInt(qtyInput.value);
+
+        if (name && qty > 0 && imageFile) {
+            
+            productCatalog.push({ name: name, qty: qty, image: imageFile.name });
+
+            let currentProducts = parseInt(totalProductsDisplay.textContent) || 0;
+            currentProducts += 1;
+            totalProductsDisplay.textContent = currentProducts;
+
+            alert(`Product "${name}" added successfully!`);
+            
+            nameInput.value = "";
+            qtyInput.value = "";
+            productImageInput.value = "";
+            
+            // Navigate to the product list to show the newly added item
+            navigateToSection('view-products', document.querySelector('a[data-section="view-products"]'));
+            
+        } else {
+            let errorMsg = "Please enter valid product details.";
+            if (!imageFile) {
+                errorMsg += "\nPlease select a product image.";
+            }
+            alert(errorMsg);
+        }
+    });
+    
+    logoutBtn.addEventListener("click", function () {
+        localStorage.removeItem("sellerLoggedIn");
+        window.location.href = "seller-signin.html";
+    });
+
+    // --- Initial State Setup ---
+    navigateToSection('dashboard', sidebarLinks[0]); 
+});
+</script>

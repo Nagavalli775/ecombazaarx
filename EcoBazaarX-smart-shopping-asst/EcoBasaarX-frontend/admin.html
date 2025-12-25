@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EcoBazaarX | Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
+
+    body {
+      background: #f5faf7;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 250px;
+      background: linear-gradient(180deg, #0ea5a4, #22c55e);
+      color: white;
+      padding: 25px 20px;
+    }
+
+    .sidebar h2 {
+      font-size: 22px;
+      margin-bottom: 30px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar li {
+      padding: 12px 15px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .sidebar li:hover,
+    .sidebar li.active {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* MAIN */
+    .main {
+      flex: 1;
+      padding: 30px;
+      overflow-x: auto;
+    }
+
+    .header {
+      margin-bottom: 25px;
+    }
+
+    .header h1 {
+      font-size: 26px;
+      color: #064e3b;
+    }
+
+    /* CARD */
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+
+    /* TABLE */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th {
+      background: #ecfdf5;
+      color: #065f46;
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    tr:hover {
+      background: #f0fdf4;
+    }
+
+    .verify-btn {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      background: #0ea5a4;
+      color: white;
+    }
+
+    .approved {
+      background: #22c55e;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      display: inline-block;
+    }
+
+    @media (max-width: 900px) {
+      table {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>EcoBazaarX</h2>
+    <ul>
+      <li id="verifySellerBtn" class="active" onclick="loadVerifySeller()">Verify Seller</li>
+      <li id="usersBtn" onclick="loadUsers()">Users</li>
+    </ul>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+    <div class="header">
+      <h1 id="pageTitle">Verify Sellers</h1>
+    </div>
+
+    <div class="card" id="contentArea">
+      <!-- Dynamic content loads here -->
+    </div>
+  </div>
+
+  <script>
+    const contentArea = document.getElementById("contentArea");
+    const pageTitle = document.getElementById("pageTitle");
+
+    const verifySellerBtn = document.getElementById("verifySellerBtn");
+    const usersBtn = document.getElementById("usersBtn");
+
+    /* ACTIVE SIDEBAR HANDLER */
+    function setActive(activeBtn) {
+      verifySellerBtn.classList.remove("active");
+      usersBtn.classList.remove("active");
+      activeBtn.classList.add("active");
+    }
+
+    /* VERIFY SELLER */
+    function loadVerifySeller() {
+      setActive(verifySellerBtn);
+      pageTitle.innerText = "Verify Sellers";
+
+      contentArea.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>User Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Shop Name</th>
+              <th>Address</th>
+              <th>Business Type</th>
+              <th>IFSC</th>
+              <th>Account No</th>
+              <th>GST No</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${sellerRow("Amit Kumar")}
+            ${sellerRow("Riya Das")}
+            ${sellerRow("Sourav Paul")}
+            ${sellerRow("Neha Singh")}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function sellerRow(name) {
+      return `
+        <tr>
+          <td>${name}</td>
+          <td>${name.split(" ")[0].toLowerCase()}@gmail.com</td>
+          <td>9XXXXXXXXX</td>
+          <td>${name} Store</td>
+          <td>Kolkata, WB</td>
+          <td>Retail</td>
+          <td>SBIN000123</td>
+          <td>XXXXXX4321</td>
+          <td>19ABCDE1234F1Z5</td>
+          <td>
+            <button class="verify-btn" onclick="approve(this)">Verify</button>
+          </td>
+        </tr>
+      `;
+    }
+
+    function approve(btn) {
+      btn.parentElement.innerHTML = `<span class="approved">Approved</span>`;
+    }
+
+    /* USERS */
+    function loadUsers() {
+      setActive(usersBtn);
+      pageTitle.innerText = "Users";
+
+      let rows = "";
+      for (let i = 1; i <= 10; i++) {
+        rows += `
+          <tr>
+            <td>User ${i}</td>
+            <td>9XXXXXXXX${i}</td>
+            <td>user${i}@gmail.com</td>
+          </tr>
+        `;
+      }
+
+      contentArea.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>User Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows}
+          </tbody>
+        </table>
+      `;
+    }
+
+    /* DEFAULT LOAD */
+    loadVerifySeller();
+  </script>
+
+</body>
+</html>
