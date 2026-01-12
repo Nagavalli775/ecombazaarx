@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Seller Sign Up — EcoBazaarX</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap');
+
+        :root {
+            --accent: #2a7d2e;
+            --accent-2: #1f9ad0;
+            --muted: #6b7a71;
+        }
+
+        body {
+            background: linear-gradient(180deg, #fbfff9 0%, #ffffff 100%);
+            font-family: 'Nunito', sans-serif;
+            color: #153226;
+            font-family: Inter, system-ui;
+            margin: 0;
+        }
+
+        .seller-page {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .seller-card {
+            background: linear-gradient(180deg, #ffffff, #f9fffa);
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 18px 48px rgba(9, 30, 20, 0.06);
+            border: 1px solid rgba(20, 40, 20, 0.03);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            margin-bottom: 18px;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 14px;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input,
+        textarea,
+        select {
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(20, 30, 20, 0.07);
+            background: #fff;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 100px;
+        }
+
+        .err {
+            color: #b94a48;
+            font-size: 13px;
+            min-height: 18px;
+        }
+
+        .terms-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 6px;
+        }
+
+        .actions {
+            margin-top: 16px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--accent-2), var(--accent));
+            color: #fff;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid rgba(20, 40, 20, 0.06);
+            border-radius: 12px;
+            padding: 10px 14px;
+            cursor: pointer;
+            color: var(--accent);
+        }
+
+        .success {
+            color: #145a2a;
+            background: #f0fff4;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(34, 80, 36, 0.08);
+            margin-bottom: 10px;
+        }
+
+        .hero-title {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        @media (max-width:780px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="seller-page">
+        <div class="seller-card">
+
+            <h1>Register as a Seller</h1>
+            <p class="subtitle">Join EcoBazaarX and reach customers looking for sustainable products.</p>
+
+            <div id="formFeedback"></div>
+
+            <form id="sellerForm" novalidate>
+
+                <div class="form-grid">
+
+                    <div class="field full">
+                        <label for="username">Username *</label>
+                        <input id="username" name="username" type="text">
+                        <div class="err" id="err_username"></div>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Email *</label>
+                        <input id="email" name="email" type="email">
+                        <div class="err" id="err_email"></div>
+                    </div>
+
+                    <div class="field">
+                        <label for="phone">Phone *</label>
+                        <input id="phone" name="phone" type="tel" placeholder="10-digit mobile">
+                        <div class="err" id="err_phone"></div>
+                    </div>
+
+                    <div class="field">
+                        <label for="password">Password *</label>
+                        <input id="password" name="password" type="password">
+                        <div class="err" id="err_password"></div>
+                    </div>
+
+                    <!-- <div class="field">
+                        <label for="confirmPassword">Confirm Password *</label>
+                        <input id="confirmPassword" name="confirmPassword" type="password">
+                        <div class="err" id="err_confirmPassword"></div>
+                    </div> -->
+
+                    <div class="field full">
+                        <label for="shopName">Shop Name *</label>
+                        <input id="shopName" name="shopName" type="text">
+                        <div class="err" id="err_shopName"></div>
+                    </div>
+
+                    <div class="field full">
+                        <label for="shopAddress">Shop Address *</label>
+                        <textarea id="shopAddress" name="shopAddress"></textarea>
+                        <div class="err" id="err_shopAddress"></div>
+                    </div>
+
+                    <div class="field">
+                        <label for="businessType">Business Type *</label>
+                        <select id="businessType" name="businessType">
+                            <option value="">Select...</option>
+                            <option value="Retail">Retail</option>
+                            <option value="Manufacturer">Manufacturer</option>
+                            <option value="Wholesaler">Wholesaler</option>
+                            <!-- <option value="Artisan">Artisan</option> -->
+                            <!-- <option value="Other">Other</option> -->
+                        </select>
+                        <div class="err" id="err_businessType"></div>
+                    </div>
+
+                    <div class="field">
+                        <label for="gstNumber">GST Number (Optional)</label>
+                        <input id="gstNumber" name="gstNumber" type="text">
+                    </div>
+
+                    <div class="field">
+                        <label for="bankAccountNumber">Bank Account Number *</label>
+                        <input id="bankAccountNumber" name="bankAccountNumber" type="text">
+                        <div class="err" id="err_bankAccountNumber"></div>
+                    </div>
+
+                    <div class="field">
+                        <label for="ifscCode">IFSC Code *</label>
+                        <input id="ifscCode" name="ifscCode" type="text">
+                        <div class="err" id="err_ifscCode"></div>
+                    </div>
+
+                    <div class="field full">
+                        <div class="terms-row">
+                            <!-- <input id="termsAccepted" name="termsAccepted" type="checkbox">
+                            <label for="termsAccepted">I accept the Terms & Conditions.</label> -->
+                            <label for="termsAccepted">Terms and Conditions Accepted *</label>
+                            <input id="termsAccepted" name="termsAccepted" type="text" placeholder="true or false">
+                        </div>
+                        <div class="err" id="err_termsAccepted"></div>
+                    </div>
+
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="btn-primary">Create Account</button>
+                    <button type="button" class="btn-ghost" id="cancelBtn">Cancel</button>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <script src="/js/sellerapi.js"></script>
+    <script>
+        // (function () {
+
+        //     const form = document.getElementById('sellerForm');
+        //     const feedback = document.getElementById('formFeedback');
+        //     const cancelBtn = document.getElementById('cancelBtn');
+
+            // cancelBtn.addEventListener('click', () => {
+            //     window.location.href = "landing.html";
+            // });
+
+            // function setErr(id, msg) { document.getElementById("err_" + id).textContent = msg || ""; }
+
+            // function validate(v) {
+            //     let ok = true;
+            //     ["username", "email", "phone", "password", "confirmPassword", "shopName", "shopAddress", "businessType", "bankAccountNumber", "ifscCode", "termsAccepted"].forEach(k => setErr(k, ""));
+
+            //     if (!v.username) { setErr("username", "Required"); ok = false; }
+            //     if (!/^\S+@\S+\.\S+$/.test(v.email)) { setErr("email", "Invalid email"); ok = false; }
+            //     if (!/^\d{10}$/.test(v.phone)) { setErr("phone", "Enter 10-digit number"); ok = false; }
+            //     if (v.password.length < 6) { setErr("password", "Minimum 6 characters"); ok = false; }
+            //     // if (v.password !== v.confirmPassword) { setErr("confirmPassword", "Passwords do not match"); ok = false; }
+            //     if (!v.shopName) { setErr("shopName", "Required"); ok = false; }
+            //     if (!v.shopAddress) { setErr("shopAddress", "Required"); ok = false; }
+            //     if (!v.businessType) { setErr("businessType", "Required"); ok = false; }
+            //     if (!v.bankAccountNumber) { setErr("bankAccountNumber", "Required"); ok = false; }
+            //     if (!v.ifscCode) { setErr("ifscCode", "Required"); ok = false; }
+            //     if (!v.termsAccepted) { setErr("termsAccepted", "You must accept"); ok = false; }
+
+            //     return ok;
+            // }
+
+            // form.addEventListener("submit", async (e) => {
+            //     e.preventDefault();
+            //     feedback.innerHTML = "";
+
+            //     const data = {
+            //         username: form.username.value.trim(),
+            //         email: form.email.value.trim(),
+            //         phone: form.phone.value.trim(),
+            //         password: form.password.value,
+                    // confirmPassword: form.confirmPassword.value,
+                //     shopName: form.shopName.value.trim(),
+                //     shopAddress: form.shopAddress.value.trim(),
+                //     businessType: form.businessType.value,
+                //     gstNumber: form.gstNumber.value.trim(),
+                //     bankAccountNumber: form.bankAccountNumber.value.trim(),
+                //     ifscCode: form.ifscCode.value.trim(),
+                //     termsAccepted: form.termsAccepted.checked
+                // };
+
+                // if (!validate(data)) return;
+
+                // const fd = new FormData();
+                // Object.keys(data).forEach(k => fd.append(k, data[k]));
+
+                // const btn = form.querySelector(".btn-primary");
+                // btn.disabled = true;
+                // btn.textContent = "Creating...";
+
+                // try {
+                    // DEMO MODE:
+                    // await new Promise(r=>setTimeout(r,800));
+                    // feedback.innerHTML = '<div class="success">Account created! Redirecting...</div>';
+                    // setTimeout(()=>window.location.href="signin.html",1000);
+                    // btn.disabled=false; btn.textContent="Create Account";
+                    // return;
+
+            //         const res = await fetch("/api/seller/signup", { method: "POST", body: fd });
+            //         if (!res.ok) throw new Error("Signup failed.");
+
+            //         feedback.innerHTML = '<div class="success">Seller account created. Redirecting...</div>';
+            //         setTimeout(() => window.location.href = "signin.html", 1100);
+
+            //     } catch (err) {
+            //         feedback.innerHTML = '<div class="err">Error: ' + err.message + '</div>';
+            //     } finally {
+            //         btn.disabled = false;
+            //         btn.textContent = "Create Account";
+            //     }
+            // });
+
+        // })();
+    </script>
+
+</body>
+
+</html>

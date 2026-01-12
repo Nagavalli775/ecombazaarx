@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>EcoBasaarX — Create account</title>
+
+  <!-- Nunito font -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Shared site styles -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <main class="card" aria-labelledby="title">
+    <header class="brand">
+      <div class="eco-logo">Eco<span>Basaar</span>X</div>
+    </header>
+
+    <h1 id="title">Create an account</h1>
+    <p class="lead">Sign up to track your carbon footprint and discover greener alternatives.</p>
+
+    <form id="registerForm" novalidate>
+      <div class="form-grid">
+
+        <!-- LEFT column -->
+        <div class="form-col">
+          <label class="field">
+            <span class="label-text">User name</span>
+            <input id="username" name="username" type="text" autocomplete="given-name" required placeholder="User name">
+          </label>
+
+          <!-- <label class="field">
+            <span class="label-text">Last name</span>
+            <input id="lastName" name="lastName" type="text" autocomplete="family-name" required placeholder="Last name">
+          </label> -->
+
+          <label class="field">
+            <span class="label-text">Email</span>
+            <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+            <div id="emailErr" class="error" aria-live="polite"></div>
+          </label>
+        </div>
+
+        <!-- RIGHT column -->
+        <div class="form-col">
+          <label class="field">
+            <span class="label-text">Mobile number</span>
+            <div class="mobile-row">
+              <!-- <select id="countryCode" aria-label="Country code" class="country">
+                <option value="+91">IN +91</option>
+                <option value="+1">US +1</option>
+                <option value="+44">UK +44</option>
+              </select> -->
+
+              <input id="phone" name="mobile" type="tel" inputmode="tel" placeholder="98765 43210" required class="mobile-input">
+              <!-- <button id="verifyBtn" type="button" class="btn ghost" aria-pressed="false" disabled>Verify</button> -->
+            </div>
+            <div id="mobileErr" class="error" aria-live="polite"></div>
+
+            <!-- <div id="otpArea" class="otp-area" style="display:none">
+              <input id="otpInput" placeholder="Enter OTP" maxlength="6" />
+              <button id="confirmOtp" type="button" class="btn primary">Confirm</button>
+              <button id="cancelOtp" type="button" class="btn ghost">Cancel</button>
+            </div>
+            <div id="mobileStatus" class="small-note" aria-live="polite"></div> -->
+          </label>
+
+          <label class="field">
+            <span class="label-text">Set password</span>
+            <input id="password" name="password" type="password" required minlength="6" placeholder="At least 6 characters">
+
+            <div class="pw-row">
+              <label class="show"><input id="showPassword" type="checkbox"> Show password</label>
+              <span class="pw-note">Passwords must be at least 6 characters.</span>
+            </div>
+            <div id="passErr" class="error" aria-live="polite"></div>
+          </label>
+        </div>
+
+      </div>
+
+      <div class="actions">
+        <button id="submitBtn" type="submit" class="btn primary">Create account</button>
+        <button type="button" class="btn link" id="toSignIn">Already have an account</button>
+      </div>
+
+      <div id="formMsg" class="small-note" aria-live="polite"></div>
+    </form>
+  </main>
+
+  <!-- shared auth logic -->
+  <script src="/js/auth.js"></script>
+  <script src="/js/apicalls.js"></script>
+</body>
+</html>

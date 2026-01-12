@@ -1,0 +1,9 @@
+package com.example.ecombazaarx.dto;
+
+import lombok.Data;
+
+@Data
+public class EcoRatingDTO {
+    private Double carbonKg;
+    private String rating;
+}
