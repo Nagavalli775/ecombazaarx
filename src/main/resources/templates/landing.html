@@ -344,6 +344,148 @@
                 height: 160px
             }
         }
+
+        /* ===== Enhanced search & filter bar ===== */
+        .eco-controls {
+            background: #ffffff;
+            padding: 16px 18px;
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            gap: 14px;
+        }
+
+        .eco-controls input[type="search"] {
+            width: 260px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid #dfeee8;
+            font-size: 14px;
+        }
+
+        .eco-controls input[type="search"]:focus {
+            outline: none;
+            border-color: #0a7a2b;
+            box-shadow: 0 0 0 3px rgba(10, 122, 43, 0.15);
+        }
+
+        .eco-controls label {
+            background: #f3faf7;
+            padding: 8px 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+        }
+
+        .eco-controls select,
+        .eco-controls input[type="number"] {
+            border: none;
+            background: transparent;
+            font-weight: 600;
+        }
+
+        /* ===== refined added-to-cart state ===== */
+        .btn-added {
+            background: #f3faf7;
+            color: #1e7f4f;
+            border: 1px solid #cfe7db;
+            cursor: default;
+            font-weight: 600;
+        }
+
+        .btn-added::after {
+            content: "✓";
+            margin-left: 6px;
+            font-weight: 700;
+        }
+
+        /* ===== cart item UI refinement ===== */
+        .cart-item-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid #eef2ef;
+        }
+
+        .cart-item-left {
+            max-width: 65%;
+        }
+
+        .cart-item-title {
+            font-weight: 700;
+            font-size: 14px;
+            color: #102a1f;
+        }
+
+        .cart-item-meta {
+            font-size: 13px;
+            color: #6b7f77;
+            margin-top: 4px;
+        }
+
+        .cart-item-right {
+            text-align: right;
+        }
+
+        .cart-item-co2 {
+            font-size: 13px;
+            color: #2f7f4f;
+            font-weight: 600;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+            justify-content: flex-end;
+        }
+
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: 1px solid #dfe7e2;
+            background: #ffffff;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .qty-btn:hover {
+            background: #f3faf7;
+        }
+
+        .remove-btn {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            opacity: 0.6;
+        }
+
+        .remove-btn:hover {
+            opacity: 1;
+        }
+
+        /* refined cart close button */
+        .cart-close-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid #e3e9e6;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            color: #6b7f77;
+        }
+
+        .cart-close-btn:hover {
+            background: #f3faf7;
+            color: #0a7a2b;
+        }
     </style>
 </head>
 
@@ -462,8 +604,12 @@
             <aside id="offcanvasCart" class="offcanvas" aria-hidden="true">
                 <div class="offcanvas-header">
                     <h4>Your cart</h4>
-                    <button id="offcanvasClose" class="btn-ghost" aria-label="Close cart">Close</button>
+                    <button id="offcanvasClose" class="cart-close-btn" aria-label="Close cart">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
                 </div>
+
                 <div id="offcanvasItems" class="offcanvas-body small-note">No items yet</div>
                 <div class="offcanvas-footer">
                     <div style="display:flex;justify-content:space-between">
@@ -805,26 +951,31 @@
             if (sortBy === 'carbon_desc') list.sort((a, b) => b.co2 - a.co2);
 
             grid.innerHTML = list.map(p => `
-    <article class="eco-card">
-      <div class="eco-img"><img src="${esc(p.img)}" alt="${esc(p.title)}"></div>
-      <div class="eco-body">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-          <div style="max-width:70%"><div class="eco-title">${esc(p.title)}</div><div class="small-note" style="margin-top:6px">Seller: ${esc(p.seller)}</div></div>
-          <div style="text-align:right"><div class="eco-price">₹${p.price}</div><div class="eco-score-badge" style="margin-top:8px">${p.ecoScore}</div></div>
-        </div>
+            <article class="eco-card">
+            <div class="eco-img"><img src="${esc(p.img)}" alt="${esc(p.title)}"></div>
+            <div class="eco-body">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                <div style="max-width:70%"><div class="eco-title">${esc(p.title)}</div><div class="small-note" style="margin-top:6px">Seller: ${esc(p.seller)}</div></div>
+                <div style="text-align:right"><div class="eco-price">₹${p.price}</div><div class="eco-score-badge" style="margin-top:8px">${p.ecoScore}</div></div>
+                </div>
 
-        <div style="margin-top:10px">
-          <div class="eco-co2">${p.co2.toFixed(3)} kg CO₂</div>
-          <div class="eco-delta small-note">${esc(p.delta)}</div>
-        </div>
+                <div style="margin-top:10px">
+                <div class="eco-co2">${p.co2.toFixed(3)} kg CO₂</div>
+                <div class="eco-delta small-note">${esc(p.delta)}</div>
+                </div>
 
-        <div class="card-actions">
-          <button class="btn primary" onclick="addToCart('${p.id}')">Add to cart</button>
-          <button class="btn-ghost" onclick="showDetails('${p.id}')">Details</button>
-        </div>
-      </div>
-    </article>
-  `).join('');
+                <div class="card-actions">
+                <button 
+                    class="btn primary"
+                    id="btn-${p.id}"
+                    onclick="handleAddToCart('${p.id}')">
+                    Add to cart
+                </button>
+                <button class="btn-ghost" onclick="showDetails('${p.id}')">Details</button>
+                </div>
+            </div>
+            </article>
+        `).join('');
         }
 
         /* Live sync: if seller updates products, refresh landing page */
@@ -851,21 +1002,22 @@
                 offcanvasItems.innerHTML = '<div class="small-note">No items yet</div>';
             } else {
                 offcanvasItems.innerHTML = cart.map(it => `
-      <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f2f5f2">
-        <div style="max-width:70%">
-          <div style="font-weight:700">${esc(it.title)}</div>
-          <div class="small-note">₹${it.price} × ${it.qty}</div>
-        </div>
-        <div style="text-align:right">
-          <div class="small-note">${(it.co2 * it.qty).toFixed(3)} kg</div>
-          <div style="margin-top:8px;display:flex;gap:6px;justify-content:flex-end">
-            <button class="btn-ghost" onclick="changeQty('${it.id}',-1)">−</button>
-            <button class="btn-ghost" onclick="changeQty('${it.id}',1)">+</button>
-            <button class="btn-ghost" onclick="removeItem('${it.id}')">🗑</button>
-          </div>
-        </div>
-      </div>
-    `).join('');
+                    <div class="cart-item-row">
+                    <div class="cart-item-left">
+                        <div class="cart-item-title">${esc(it.title)}</div>
+                        <div class="cart-item-meta">₹${it.price} × ${it.qty}</div>
+                    </div>
+
+                    <div class="cart-item-right">
+                        <div class="cart-item-co2">${(it.co2 * it.qty).toFixed(3)} kg</div>
+                        <div class="cart-item-actions">
+                        <button class="qty-btn" onclick="changeQty('${it.id}',-1)">−</button>
+                        <button class="qty-btn" onclick="changeQty('${it.id}',1)">+</button>
+                        <button class="remove-btn" onclick="removeItem('${it.id}')">🗑</button>
+                        </div>
+                    </div>
+                    </div>
+                `).join('');
             }
 
             // totals
@@ -893,6 +1045,18 @@
             else cart.push({ id: p.id, title: p.title, price: p.price, co2: p.co2, qty: 1 });
             renderCartUI();
         }
+        function handleAddToCart(id) {
+            addToCart(id); // existing logic stays
+
+            const btn = document.getElementById(`btn-${id}`);
+            if (!btn) return;
+
+            btn.textContent = "Added to cart";
+            btn.disabled = true;
+            btn.classList.remove("primary");
+            btn.classList.add("btn-added");
+        }
+
         function changeQty(id, delta) {
             const it = cart.find(x => x.id === id);
             if (!it) return;
@@ -926,12 +1090,6 @@
         document.getElementById('offcanvasClose').addEventListener('click', () => {
             offcanvas.classList.remove('show'); offcanvas.setAttribute('aria-hidden', 'true');
         });
-        /* clicking outside the offcanvas closes it */
-        document.addEventListener('click', (e) => {
-            if (!offcanvas.classList.contains('show')) return;
-            const inside = offcanvas.contains(e.target) || document.getElementById('cartToggleBtn').contains(e.target);
-            if (!inside) { offcanvas.classList.remove('show'); offcanvas.setAttribute('aria-hidden', 'true'); }
-        });
 
         /* checkout & clear */
         document.getElementById('checkoutBtn').addEventListener('click', () => {
@@ -939,7 +1097,12 @@
             alert(`Checkout demo\nTotal CO₂e: ${document.getElementById('totalCO2').textContent} kg`);
             cart = []; renderCartUI(); offcanvas.classList.remove('show');
         });
-        document.getElementById('clearCart').addEventListener('click', () => { cart = []; renderCartUI(); });
+        document.getElementById('clearCart').addEventListener('click', () => {
+            cart = [];
+            renderCartUI();
+            offcanvas.classList.remove('show');
+            offcanvas.setAttribute('aria-hidden', 'true');
+        });
 
         /* filter wiring */
         ['searchBox', 'ecoMin', 'ecoCertified', 'sortBy'].forEach(id => {
