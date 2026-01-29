@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>EcoBasaarX — Create account</title>
 
   <!-- Nunito font -->
@@ -11,6 +12,7 @@
   <!-- Shared site styles -->
   <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
 
   <main class="card" aria-labelledby="title">
@@ -54,7 +56,8 @@
                 <option value="+44">UK +44</option>
               </select> -->
 
-              <input id="phone" name="mobile" type="tel" inputmode="tel" placeholder="98765 43210" required class="mobile-input">
+              <input id="phone" name="mobile" type="tel" inputmode="tel" placeholder="98765 43210" required
+                class="mobile-input">
               <!-- <button id="verifyBtn" type="button" class="btn ghost" aria-pressed="false" disabled>Verify</button> -->
             </div>
             <div id="mobileErr" class="error" aria-live="polite"></div>
@@ -69,7 +72,8 @@
 
           <label class="field">
             <span class="label-text">Set password</span>
-            <input id="password" name="password" type="password" required minlength="6" placeholder="At least 6 characters">
+            <input id="password" name="password" type="password" required minlength="6"
+              placeholder="At least 6 characters">
 
             <div class="pw-row">
               <label class="show"><input id="showPassword" type="checkbox"> Show password</label>
@@ -83,7 +87,9 @@
 
       <div class="actions">
         <button id="submitBtn" type="submit" class="btn primary">Create account</button>
-        <button type="button" class="btn link" id="toSignIn">Already have an account</button>
+        <a href="/pageSignin" class="btn link">
+          Already have an account
+        </a>
       </div>
 
       <div id="formMsg" class="small-note" aria-live="polite"></div>
@@ -94,4 +100,5 @@
   <script src="/js/auth.js"></script>
   <script src="/js/apicalls.js"></script>
 </body>
+
 </html>
