@@ -173,26 +173,6 @@
             border-radius: 999px;
             font-weight: 600;
         }
-
-        .user-action-btn {
-            padding: 6px 14px;
-            border-radius: 999px;
-            border: none;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .user-approve {
-            background: #22c55e;
-            color: white;
-        }
-
-        .user-reject {
-            background: #ef4444;
-            color: white;
-            margin-left: 6px;
-        }
     </style>
 </head>
 
@@ -377,21 +357,16 @@
             });
         }
 
-        async function loadTopEcoProducts() {
-            const res = await fetch(`${API}/top-eco-products`, {
-                headers: authHeaders()
-            });
-            const products = await res.json();
-
-            const labels = products.map(p => p.name);
-            const data = products.map(p => p.carbonImpactKg);
+        function loadTopEcoProducts() {
+            const labels = ["Cloth Bag", "Steel Bottle", "Bamboo Brush"];
+            const data = [18, 25, 12];
 
             new Chart(document.getElementById("ecoProductChart"), {
                 type: "bar",
                 data: {
                     labels,
                     datasets: [{
-                        label: "Carbon Impact (kg)",
+                        label: "Carbon Impact Saved (kg)",
                         data,
                         backgroundColor: "#22c55e"
                     }]
@@ -450,29 +425,28 @@
             let rows = "";
             users.forEach(u => {
                 rows += `
-                    <tr>
-                        <td>${u.username}</td>
-                        <td>${u.phone}</td>
-                        <td>${u.email}</td>
-                        <td>
-                            <button class="user-action-btn user-approve" onclick="approveUser(this)">Approve</button>
-                            <button class="user-action-btn user-reject" onclick="rejectUser(this)">Reject</button>
-                        </td>
-                    </tr>
-                `;
+            <tr>
+                <td>${u.username}</td>
+                <td>${u.phone}</td>
+                <td>${u.email}</td>
+            </tr>
+        `;
             });
 
             contentArea.innerHTML = `
                 <table>
                     <thead>
                         <tr>
-                            <th>Name</th><th>Phone</th><th>Email</th><th>Action</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
                         </tr>
                     </thead>
                     <tbody>${rows}</tbody>
                 </table>
             `;
         }
+
 
         function downloadReport() {
             fetch("http://localhost:9090/api/admin/eco-report", {
@@ -493,14 +467,6 @@
 
         function approve(btn) {
             btn.parentElement.innerHTML = `<span class="approved">Approved</span>`;
-        }
-
-        function approveUser(btn) {
-            btn.parentElement.innerHTML = `<span class="approved">Approved</span>`;
-        }
-
-        function rejectUser(btn) {
-            btn.parentElement.innerHTML = `<span style="color:#ef4444;font-weight:600">Rejected</span>`;
         }
 
         function logout() {
