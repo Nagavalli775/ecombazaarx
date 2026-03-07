@@ -33,6 +33,7 @@ public class SecurityConfig {
                 "/seller/dashboard",
                 "/admin/dashboard",
                 "/landing",
+                "/uploads/**",
                 "/css/**",
                 "/js/**",
                 "/assets/**"
@@ -43,6 +44,7 @@ public class SecurityConfig {
             //   .requestMatchers("/admin/dashboard").hasRole("ADMIN")
 
             //    APIs
+               .requestMatchers("/api/products").permitAll()
               .requestMatchers("/signup/**", "/login").permitAll()
               .requestMatchers("/user/profile").hasRole("USER")
               .requestMatchers("/api/admin/**").hasRole("ADMIN")

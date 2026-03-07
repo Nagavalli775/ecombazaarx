@@ -17,6 +17,7 @@ public class ProductMapper {
                 .carbonImpactKg(p.getCarbonImpactKg())
                 .ecoVerified(p.getEcoVerified())
                 .category(p.getCategory())
+                .imageUrl(p.getImageUrl())
                 .sellerId(p.getSeller().getId())
                 .sellerName(p.getSeller().getUsername())
                 .build();

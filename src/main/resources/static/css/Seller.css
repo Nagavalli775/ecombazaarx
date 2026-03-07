@@ -1,0 +1,567 @@
+:root {
+            /* Logo-specific colors */
+            --logo-blue: #1CA3D8;
+            /* EcoBasaar blue */
+            --logo-green: #34C759;
+            /* Basaar green */
+            --logo-green-dark: #1B9E4B;
+            /* Darker X */
+
+            /* Primary UI colors (buttons, highlights, gradients) */
+            --primary: var(--logo-blue);
+            --primary-2: var(--logo-green);
+
+            /* Background theme */
+            --bg: #f7fbf9;
+            --bg-2: #f3f8f6;
+
+            /* Neutrals */
+            --white: #ffffff;
+            --muted: #6b7a73;
+
+            /* Aesthetic tokens */
+            --card-shadow: 0 12px 30px rgba(6, 25, 18, 0.06);
+            --radius: 12px;
+        }
+
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            font-family: "Nunito", system-ui, Segoe UI, Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(180deg, #f7fbf9 0%, #f3f8f6 100%);
+            color: #0b3b2a;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* top header (made pure white as requested) */
+        header.site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 28px;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            border-bottom: 1px solid #eef2ef;
+            z-index: 50;
+        }
+
+        .eco-logo {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--logo-blue), var(--logo-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* the <span> around the 'X' (or last letter) */
+        .eco-logo span {
+            color: var(--logo-green);
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            font-weight: 700;
+            border-radius: 10px;
+            padding: 8px 14px;
+            cursor: pointer;
+            border: 0;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid rgba(10, 20, 10, 0.05);
+            color: var(--muted)
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary), var(--primary-2));
+            color: #fff;
+            border: 0;
+            border-radius: 10px;
+            padding: 8px 14px;
+            box-shadow: 0 6px 16px rgba(26, 167, 214, 0.12);
+        }
+
+        /* page layout */
+        .wrap {
+            display: flex;
+            gap: 20px;
+            padding: 22px;
+            max-width: 1200px;
+            margin: 10px auto;
+            width: calc(100% - 44px)
+        }
+
+        .sidebar {
+            width: 240px;
+            background: linear-gradient(180deg, #ecf9ef, #f5fbf7);
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: var(--card-shadow);
+            position: sticky;
+            top: 18px;
+            height: calc(100vh - 36px);
+            overflow: auto;
+        }
+
+        .sidebar h3 {
+            margin: 6px 0 12px;
+            color: var(--primary)
+        }
+
+        .nav-link {
+            display: block;
+            padding: 12px 14px;
+            border-radius: 10px;
+            color: #123824;
+            text-decoration: none;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.02)
+        }
+
+        .main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .main-header h1 {
+            margin: 0;
+            font-size: 20px
+        }
+
+        /* summary: keep 2 compact cards */
+        .summary {
+            margin-top: 16px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .summary .card {
+            background: var(--white);
+            padding: 18px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            min-width: 160px;
+            flex: 1
+        }
+
+        .card h2 {
+            margin: 0;
+            color: var(--primary)
+        }
+
+        .card p {
+            margin: 6px 0 0;
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .content {
+            margin-top: 18px;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 18px;
+            align-items: start;
+        }
+
+        @media (max-width:1000px) {
+            .wrap {
+                padding: 12px
+            }
+
+            .content {
+                grid-template-columns: 1fr
+            }
+
+            .sidebar {
+                display: none
+            }
+        }
+
+        .panel {
+            background: var(--white);
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow)
+        }
+
+        /* Add product form: compact, professional */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 140px;
+            gap: 12px;
+            align-items: start
+        }
+
+        .form-row {
+            display: flex;
+            gap: 12px
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: var(--muted);
+            font-weight: 700
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid #e9f4ee;
+            background: #fbfffc;
+            font-size: 14px;
+            color: #0b3b2a;
+        }
+
+        input[type="file"] {
+            padding: 6px;
+        }
+
+        .form-actions {
+            margin-top: 12px;
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        /* -------------------------
+  Two-column clean product grid
+  Full images visible, no clipping
+  Paste after your existing product rules
+  ------------------------- */
+
+        /* Layout: two columns on desktop, 1 column on narrow screens */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            /* 2 columns */
+            gap: 18px;
+            align-items: stretch;
+            /* make cards same height */
+            margin-top: 12px;
+            width: 100%;
+        }
+
+        /* For small screens fall back to 1 column */
+        @media (max-width: 800px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Card: stretch & use flex so content flows and action row sits at bottom */
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            /* important to equalize card heights */
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--white);
+            box-shadow: var(--card-shadow);
+        }
+
+        /* Media area: keep an aspect ratio but show full image (contain) */
+        .product-media {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            /* consistent framed area */
+            min-height: 140px;
+            background: #f6fbf8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            /* inner spacing so image doesn't touch rounded edges */
+            box-sizing: border-box;
+            flex: 0 0 auto;
+            /* keep media fixed height within card */
+        }
+
+        /* Show the full image without cropping; preserve aspect ratio */
+        .product-media img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            /* contain = whole image visible, letterbox if needed */
+            display: block;
+            border-radius: 8px;
+            /* small inner radius to separate from card */
+        }
+
+        /* Body grows to fill card and ensure no clipping */
+        .product-body {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1 1 auto;
+            /* grow to fill card */
+            min-height: 0;
+            /* allow internal overflow handling (prevents clipping) */
+        }
+
+        /* Keep action buttons at bottom of card */
+        .product-actions {
+            margin-top: auto;
+            /* push actions to the bottom */
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* Slightly increase media height on larger screens if you want (optional) */
+        @media (min-width: 1200px) {
+            .product-media {
+                aspect-ratio: 16/9;
+                min-height: 170px;
+            }
+        }
+
+        .product-title {
+            font-weight: 700;
+            color: #0b3b2a;
+            font-size: 14px
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .badge {
+            padding: 6px 8px;
+            border-radius: 999px;
+            background: #eaf9ed;
+            color: var(--primary);
+            font-weight: 700
+        }
+
+        .product-actions {
+            margin-top: 8px;
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        /* ------------------------------
+   Clean minimal action buttons
+   ------------------------------ */
+
+        /* base button */
+        .small-btn {
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: var(--white);
+            color: var(--muted);
+            transition: 0.2s ease;
+        }
+
+        /* on hover */
+        .small-btn:hover {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        /* EDIT button */
+        .edit-btn {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .edit-btn:hover {
+            background: rgba(28, 163, 216, 0.12);
+            /* light theme-blue */
+        }
+
+        /* DELETE button */
+        .del-btn {
+            border-color: #e84c4c;
+            color: #e84c4c;
+        }
+
+        .del-btn:hover {
+            background: rgba(232, 76, 76, 0.12);
+        }
+
+        /* STOCK button */
+        .stock-btn {
+            border-color: #e7a53b;
+            color: #ca8c24;
+        }
+
+        .stock-btn:hover {
+            background: rgba(231, 165, 59, 0.12);
+        }
+
+        /* DISABLE button */
+        .toggle-btn {
+            border-color: #7d8b8a;
+            color: #61706f;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(125, 139, 138, 0.12);
+        }
+
+        .quick-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 6px
+        }
+
+        .quick-table th,
+        .quick-table td {
+            padding: 10px 6px;
+            border-bottom: 1px solid #f0f6f2;
+            font-size: 13px;
+            text-align: left
+        }
+
+        /* modal */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 20, 10, 0.36);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999
+        }
+
+        .modal {
+            width: 680px;
+            max-width: 94%;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22)
+        }
+
+        .modal .row {
+            margin-bottom: 10px
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        .note {
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        .logout-btn {
+            padding: 8px 16px;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(90deg, #2563eb, #22c55e);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* ==========================
+   Seller Profile Right Sidebar
+   ========================== */
+        .profile-sidebar {
+            position: fixed;
+            top: 0;
+            right: -380px;
+            width: 360px;
+            height: 100vh;
+            background: #ffffff;
+            box-shadow: -6px 0 20px rgba(0, 0, 0, 0.12);
+            transition: right 0.35s ease;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .profile-sidebar.active {
+            right: 0;
+        }
+
+        .profile-sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .profile-sidebar-header h3 {
+            margin: 0;
+            color: var(--primary);
+        }
+
+        .profile-close {
+            border: none;
+            background: transparent;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .profile-content {
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #e9f7ef;
+            margin-bottom: 10px;
+        }
+
+        .profile-content h2 {
+            margin: 10px 0 6px;
+        }
+
+        .profile-content p {
+            margin: 6px 0;
+            color: var(--muted);
+            font-size: 14px;
+        }

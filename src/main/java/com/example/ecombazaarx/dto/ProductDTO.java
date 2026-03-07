@@ -15,6 +15,7 @@ public class ProductDTO {
     private Double carbonImpactKg;
     private Boolean ecoVerified;
     private String category;
+    private String imageUrl;
     private Long sellerId;
     private String sellerName;
 }

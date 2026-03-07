@@ -35,6 +35,7 @@ public class ProductService {
                 .carbonImpactKg(dto.getCarbonImpactKg())
                 .ecoVerified(dto.getEcoVerified())
                 .category(dto.getCategory())
+                .imageUrl(dto.getImageUrl())
                 .seller(dbSeller)
                 .createdAt(new Timestamp(System.currentTimeMillis()))
                 .updatedAt(new Timestamp(System.currentTimeMillis()))
@@ -70,6 +71,7 @@ public class ProductService {
         product.setCarbonImpactKg(dto.getCarbonImpactKg());
         product.setEcoVerified(dto.getEcoVerified());
         product.setCategory(dto.getCategory());
+        product.setImageUrl(dto.getImageUrl());
         product.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 
         return mapToDTO(productRepository.save(product));
@@ -111,6 +113,7 @@ public class ProductService {
                 .carbonImpactKg(product.getCarbonImpactKg())
                 .ecoVerified(product.getEcoVerified())
                 .category(product.getCategory())
+                .imageUrl(product.getImageUrl())
                 .sellerId(product.getSeller() != null ? product.getSeller().getId() : null)
                 .sellerName(product.getSeller() != null ? product.getSeller().getUsername() : null)
                 .build();
